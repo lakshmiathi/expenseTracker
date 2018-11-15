@@ -29,7 +29,16 @@
             android:label="@string/title_activity_main"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".loginActivity" />
-        <activity android:name=".SignUpActivity"></activity>
+        <activity android:name=".SignUpActivity" />
+        <activity
+            android:name=".SettingsActivity"
+            android:label="@string/title_activity_settings" />
+        <activity
+            android:name=".ExpensesActivity"
+            android:label="@string/title_activity_expenses"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".StatisticsActivity" />
+        <activity android:name=".AboutUsActivity"></activity>
     </application>
 
 </manifest>

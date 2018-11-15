@@ -1,6 +1,8 @@
 package application.android.com.expencestracker;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -18,22 +20,40 @@ import java.util.HashMap;
 import application.android.com.expencestracker.Model.UserSessionManager;
 
 public class MainActivity extends AppCompatActivity {
+    private static final String KEY_ID = "USER_ID";
+    private static final String KEY_PWD = "USER_PWD";
+    private static final String KEY_USERNAME = "USER_NAME";
 
-   /* @Override
+    private EditText emailInput;
+    private EditText pwInput;
+
+    private Context _context;
+    private UserSessionManager session;
+    String user_id;
+    String user_name;
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
+        this._context = this.getApplicationContext();
+        this.session = new UserSessionManager(this._context);
+
+        if (!this.session.CheckLogIn()) {
+            this.session.logoutUser();
+        }
+
+        HashMap<String, String> usr  = this.session.getUserDetails();
+        //user_id = usr.get(KEY_ID);
+        user_name = usr.get(KEY_USERNAME);
+
+        TextView tv = (TextView) findViewById(R.id.tv_UserId);
+        tv.setText("Welcome   " + user_name +"!!");
+
+
     }
 
     @Override
@@ -52,50 +72,37 @@ public class MainActivity extends AppCompatActivity {
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
+            Intent intent= new Intent(getApplicationContext(),SettingsActivity.class);
+            startActivity(intent);
+            return true;
+        }
+        else if(id== R.id.action_LogOut){
+            session.logoutUser();
+            return true;
+        }
+        else if(id== R.id.action_Expenses){
+            Intent intent= new Intent(getApplicationContext(),ExpensesActivity.class);
+            startActivity(intent);
+            return true;
+        }
+        else if (id== R.id.action_Statistics){
+            Intent intent= new Intent(getApplicationContext(),StatisticsActivity.class);
+            startActivity(intent);
+            return true;
+        }
+        else if (id== R.id.action_AboutUs) {
+            Intent intent = new Intent(getApplicationContext(), AboutUsActivity.class);
+            startActivity(intent);
             return true;
         }
 
-        return super.onOptionsItemSelected(item);
+
+            return super.onOptionsItemSelected(item);
+
+
+
     }
-*/
 
-    private static final String KEY_ID = "USER_ID";
-    private static final String KEY_PWD = "USER_PWD";
-    private static final String KEY_USERNAME = "USER_NAME";
 
-    private EditText emailInput;
-    private EditText pwInput;
-
-    private Context _context;
-    private UserSessionManager session;
-    String user_id;
-    String user_name;
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-
-        this._context = this.getApplicationContext();
-        this.session = new UserSessionManager(this._context);
-
-        if (!this.session.CheckLogIn()) {
-            this.session.logoutUser();
-        }
-
-        HashMap<String, String> usr  = this.session.getUserDetails();
-        //user_id = usr.get(KEY_ID);
-        user_name = usr.get(KEY_USERNAME);
-
-        TextView tv = (TextView) findViewById(R.id.tv_UserId);
-        tv.setText("HomePage " + user_name);
-
-        Button btnLogOut = (Button) findViewById(R.id.btnLogOut);
-        btnLogOut.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                session.logoutUser();
-            }
-        });
-    }
 
 }
