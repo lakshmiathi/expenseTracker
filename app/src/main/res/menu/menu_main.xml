@@ -3,20 +3,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="application.android.com.expencestracker.MainActivity">
     <item
-        android:id="@+id/action_Expenses"
-        android:orderInCategory="101"
-        android:title="Your Expenses"
-        android:visible="true"
-        app:showAsAction="never" />
-
-    <item
-        android:id="@+id/action_Statistics"
-        android:orderInCategory="101"
-        android:title="Statistics"
-        android:visible="true"
-        app:showAsAction="never" />
-
-    <item
         android:id="@+id/action_settings"
         android:orderInCategory="101"
         android:title="@string/action_settings"
@@ -29,10 +15,5 @@
         android:title="Log Out"
         android:visible="true"
         app:showAsAction="never" />
-    <item
-        android:id="@+id/action_AboutUs"
-        android:orderInCategory="101"
-        android:title="About Us"
-        android:visible="true"
-        app:showAsAction="never" />
+
 </menu>
