@@ -32,6 +32,7 @@ public class MainActivity extends AppCompatActivity {
     String user_id;
     String user_name;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -55,6 +56,8 @@ public class MainActivity extends AppCompatActivity {
 
 
     }
+
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -80,22 +83,6 @@ public class MainActivity extends AppCompatActivity {
             session.logoutUser();
             return true;
         }
-        else if(id== R.id.action_Expenses){
-            Intent intent= new Intent(getApplicationContext(),ExpensesActivity.class);
-            startActivity(intent);
-            return true;
-        }
-        else if (id== R.id.action_Statistics){
-            Intent intent= new Intent(getApplicationContext(),StatisticsActivity.class);
-            startActivity(intent);
-            return true;
-        }
-        else if (id== R.id.action_AboutUs) {
-            Intent intent = new Intent(getApplicationContext(), AboutUsActivity.class);
-            startActivity(intent);
-            return true;
-        }
-
 
             return super.onOptionsItemSelected(item);
 

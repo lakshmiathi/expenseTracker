@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/home_expenses"
+    android:background="@drawable/background"
     android:orientation="vertical"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context=".MainActivity"
@@ -30,6 +30,15 @@
         android:text="@string/add_some_expenses"
         android:textSize="24sp"
         android:textStyle="bold" />
+
+    <Button
+        android:id="@+id/addbutton"
+        android:layout_width="85dp"
+        android:layout_height="40dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="15dp"
+        android:background="@drawable/addimage"
+        android:onClick="add" />
 
 
 </LinearLayout>

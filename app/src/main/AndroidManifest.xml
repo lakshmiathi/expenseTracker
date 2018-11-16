@@ -37,8 +37,6 @@
             android:name=".ExpensesActivity"
             android:label="@string/title_activity_expenses"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".StatisticsActivity" />
-        <activity android:name=".AboutUsActivity"></activity>
     </application>
 
 </manifest>
