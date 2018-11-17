@@ -31,7 +31,7 @@ public class SignUpActivity extends AppCompatActivity {
         String password = pwInput.getText().toString().trim();
         String reg = "\\w+[\\w]*@[\\w]+\\.[\\w]+$";
         if (username.equals("") || username == null) {
-            Toast myToast = Toast.makeText(this, "Please input the username!",
+            Toast myToast = Toast.makeText(this, "Please input the user name!",
                     Toast.LENGTH_SHORT);
             myToast.show();
             ((EditText) findViewById(R.id.editText_SignUpName)).requestFocus();
