@@ -11,13 +11,15 @@ import android.widget.TextView;
 
 import application.android.com.expencestracker.Model.UserSessionManager;
 
+import static application.android.com.expencestracker.MainActivity.username;
+
 
 /**
  * A simple {@link Fragment} subclass.
  */
 public class HomeFragment extends Fragment {
 
-    //TextView textView;
+    TextView textView;
 
 
 
@@ -29,19 +31,27 @@ public class HomeFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-       // View view=inflater.inflate(R.layout.fragment_home, container, false);
-        //textView=(TextView)view.findViewById(R.id.tv_UserId);
-        //Bundle b=getArguments();
-        //String name =b.getString("user_name");
-        //textView.setText(name);
+       View view=inflater.inflate(R.layout.fragment_home, container, false);
+        textView=(TextView)view.findViewById(R.id.home1);
+        //String name= this.getString("username");
+
+        Bundle b=getArguments();
+        String name =b.getString(username);
+
+        textView.setText("Welcome "+ name);
+
 
 
 
 
         // Inflate the layout for this fragment
-        //return view;
+        return view;
 
-        return inflater.inflate(R.layout.fragment_home, container, false);
+        //return inflater.inflate(R.layout.fragment_home, container, false);
+    }
+    public void putUserName(Bundle bundle){
+        String name= bundle.getString("username");
+        textView.setText("madhu");
     }
 
 }

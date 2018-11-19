@@ -35,6 +35,7 @@ public class MainActivity extends AppCompatActivity {
     private AboutUsFragment aboutUsFragment;
 
     private FrameLayout mainFrame;
+    public static String username;
 
 
     private EditText emailInput;
@@ -73,6 +74,9 @@ public class MainActivity extends AppCompatActivity {
         aboutUsFragment = new AboutUsFragment();
 
         setFragment(homeFragment);
+        Bundle bundle=new Bundle();
+        bundle.putString(username,user_name);
+        homeFragment.setArguments(bundle);
 
         mainnav=(BottomNavigationView)findViewById(R.id.main_nav);
         mainFrame=(FrameLayout)findViewById(R.id.main_frame);
