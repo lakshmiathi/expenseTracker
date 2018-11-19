@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 public class SpalchActivity extends AppCompatActivity {
 
@@ -14,9 +15,12 @@ public class SpalchActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_spalch);
         ImageView imageView = findViewById(R.id.imageView);
+        TextView textView = findViewById(R.id.textView);
 
         Animation animation = AnimationUtils.loadAnimation(getApplicationContext(),R.anim.fade);
+        Animation animation1 = AnimationUtils.loadAnimation(getApplicationContext(),R.anim.fade_out);
         imageView.startAnimation(animation);
+        textView.startAnimation(animation1);
 
 
         Thread timer = new Thread(){
