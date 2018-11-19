@@ -26,8 +26,7 @@ import java.util.HashMap;
 import application.android.com.expencestracker.Model.UserSessionManager;;
 
 public class MainActivity extends AppCompatActivity {
-    private static final String KEY_ID = "USER_ID";
-    private static final String KEY_PWD = "USER_PWD";
+
     private static final String KEY_USERNAME = "USER_NAME";
     private BottomNavigationView mainnav;
     private HomeFragment homeFragment;
@@ -36,6 +35,7 @@ public class MainActivity extends AppCompatActivity {
     private AboutUsFragment aboutUsFragment;
 
     private FrameLayout mainFrame;
+
 
     private EditText emailInput;
     private EditText pwInput;
@@ -62,7 +62,7 @@ public class MainActivity extends AppCompatActivity {
 
         HashMap<String, String> usr  = this.session.getUserDetails();
         //user_id = usr.get(KEY_ID);
-        user_name = usr.get(KEY_USERNAME);
+        user_name = usr.get(getResources().getString(R.string.KEY_USERNAME));
 
         TextView tv = (TextView) findViewById(R.id.tv_UserId);
         //tv.setText("Welcome   " + user_name +"!!");

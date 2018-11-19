@@ -3,10 +3,12 @@ package application.android.com.expencestracker.Model;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.Resources;
 
 import java.util.HashMap;
 
 import application.android.com.expencestracker.DBImp.UserTableImp;
+import application.android.com.expencestracker.R;
 import application.android.com.expencestracker.loginActivity;
 
 public class UserSessionManager {
@@ -14,13 +16,14 @@ public class UserSessionManager {
     SharedPreferences pref;
     SharedPreferences.Editor editor;
     Context _context;
+    Resources res;
 
     private static int PRIVATE_MODE = 0;
     private static final String PREF_NAME = "SqlDemoPerf";
     private static final String IS_USER_LOGIN = "IsUserLoggedIn";
-    private static final String KEY_ID = "USER_ID";
-    private static final String KEY_PWD = "USER_PWD";
-    private static final String KEY_USERNAME = "USER_NAME";
+    private String KEY_ID;
+    private String KEY_PWD;
+    private String KEY_USERNAME;
 
     UserTableImp _userTable;
 
@@ -29,6 +32,10 @@ public class UserSessionManager {
         this.pref = this._context.getSharedPreferences(PREF_NAME, PRIVATE_MODE);
         this.editor = this.pref.edit();
         this._userTable = new UserTableImp(context);
+        res = _context.getResources();
+        KEY_ID = res.getString(R.string.KEY_ID);
+        KEY_PWD = res.getString(R.string.KEY_PWD);
+        KEY_USERNAME = res.getString(R.string.KEY_USERNAME);
     }
 
     public void createUserLoginSession(String id, String pwd) {
