@@ -23,6 +23,14 @@ public class User {
         this.status = status;
     }
 
+    public User(int userId, String username, String password, String email, boolean status) {
+        this.userId = userId;
+        this.username = username;
+        this.password = password;
+        this.email = email;
+        this.status = status;
+    }
+
     public User() {
         this.username="";
         this.password="";
@@ -60,6 +68,10 @@ public class User {
 
     public void setStatus(boolean status) {
         this.status = status;
+    }
+
+    public int getUserId() {
+        return userId;
     }
 
 }

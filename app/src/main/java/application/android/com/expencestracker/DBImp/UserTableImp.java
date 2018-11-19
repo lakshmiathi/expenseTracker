@@ -59,12 +59,13 @@ public class UserTableImp {
         User userObj = null;
 
         while (cursor.moveToNext()) {
+            int userid = cursor.getInt(cursor.getColumnIndex(User.USER_TABLE_INFO_COLUM_ID));
             String username = cursor.getString(cursor.getColumnIndex(User.USER_TABLE_INFO_COLUM_USERNAME));
             String password = cursor.getString(cursor.getColumnIndex(User.USER_TABLE_INFO_COLUM_PASSWORD));
             String email = cursor.getString(cursor.getColumnIndex(User.USER_TABLE_INFO_COLUM_EMAIL));
             int statusInt = cursor.getInt(cursor.getColumnIndex(User.USER_TABLE_INFO_COLUM_STATUS));
             boolean status = (statusInt == 1) ? true:false;
-            userObj = new User(username, password, email, status);
+            userObj = new User(userid, username, password, email, status);
         }
         cursor.close();
         return userObj;
