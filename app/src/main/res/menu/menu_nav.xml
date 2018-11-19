@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/home"
+        android:icon="@drawable/homeicon"
+        android:title="Home"></item>
+
+
+    <item
+        android:id="@+id/Expenses"
+        android:icon="@drawable/expenses"
+        android:title="Expenses"></item>
+
+    <item
+        android:id="@+id/Statistics"
+        android:icon="@drawable/statistics_icon"
+        android:title="Statistics"></item>
+
+    <item
+        android:title="About Us"
+        android:icon="@drawable/about_icon"
+        android:id="@+id/AboutUs"></item>
+
+</menu>
