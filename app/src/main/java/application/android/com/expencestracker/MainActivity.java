@@ -73,9 +73,10 @@ public class MainActivity extends AppCompatActivity {
         expensesFragment= new ExpensesFragment();
         aboutUsFragment = new AboutUsFragment();
 
-        setFragment(homeFragment);
+       setFragment(homeFragment);
         Bundle bundle=new Bundle();
         bundle.putString(username,user_name);
+
         homeFragment.setArguments(bundle);
 
         mainnav=(BottomNavigationView)findViewById(R.id.main_nav);
@@ -86,7 +87,7 @@ public class MainActivity extends AppCompatActivity {
 
                 switch (menuItem.getItemId()){
                     case R.id.home:
-                        //mainnav.setItemBackgroundResource(R.color.colorPrimaryDark);
+                       // mainnav.setItemBackgroundResource(R.color.colorPrimaryDark);
 
                         setFragment(homeFragment);
 
