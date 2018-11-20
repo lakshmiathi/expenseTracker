@@ -49,9 +49,9 @@ public class loginActivity extends AppCompatActivity {
                     i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                     // Add new flag.
                     i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-
+/*
                     i.putExtra("USER_ID", email_id);
-                    i.putExtra("USER_PWD", user_pwd);
+                    i.putExtra("USER_PWD", user_pwd);*/
                     // Now Start the Activity.
                     _context.startActivity(i);
                 } else {

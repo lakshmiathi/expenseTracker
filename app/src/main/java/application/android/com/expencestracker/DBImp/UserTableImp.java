@@ -12,61 +12,68 @@ public class UserTableImp {
     private SQLiteDatabase db;
 
     public UserTableImp(Context context) {
-        sqLiteUtil = new DBHelper(context, 1);
+        sqLiteUtil = new DBHelper(context, 2);
         db = sqLiteUtil.getWritableDatabase();
     }
 
 
     public void add(User user) {
-        //sqLiteUtil.onUpgrade(db,8,8);
+        //sqLiteUtil.onUpgrade(db,2,2);
+        db = sqLiteUtil.getWritableDatabase();
         if (user != null) {
             ContentValues contentValues = new ContentValues();
-            contentValues.put(User.USER_TABLE_INFO_COLUM_USERNAME, user.getUsername());
-            contentValues.put(User.USER_TABLE_INFO_COLUM_PASSWORD, user.getPassword());
-            contentValues.put(User.USER_TABLE_INFO_COLUM_EMAIL, user.getEmail());
-            contentValues.put(User.USER_TABLE_INFO_COLUM_STATUS, user.isStatus());
-            db.insert(User.USER_TABLE_NAME, null, contentValues);
+            contentValues.put(DBdesign.USER_TABLE_INFO_COLUM_USERNAME, user.getUsername());
+            contentValues.put(DBdesign.USER_TABLE_INFO_COLUM_PASSWORD, user.getPassword());
+            contentValues.put(DBdesign.USER_TABLE_INFO_COLUM_EMAIL, user.getEmail());
+            contentValues.put(DBdesign.USER_TABLE_INFO_COLUM_STATUS, user.isStatus());
+            db.insert(DBdesign.USER_TABLE_NAME, null, contentValues);
         }
+        db.close();
     }
 
 
     public void delete(String email) {
-        db.delete(User.USER_TABLE_NAME, User.USER_TABLE_INFO_COLUM_EMAIL+" = ?", new String[]{String.valueOf(email)});
+        db = sqLiteUtil.getWritableDatabase();
+        db.delete(DBdesign.USER_TABLE_NAME, DBdesign.USER_TABLE_INFO_COLUM_EMAIL+" = ?", new String[]{String.valueOf(email)});
         db.close();
     }
 
 
     public void update(String email, String password) {
+        db = sqLiteUtil.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
-        contentValues.put(User.USER_TABLE_INFO_COLUM_PASSWORD,password);
-        db.update(User.USER_TABLE_NAME,contentValues,User.USER_TABLE_INFO_COLUM_EMAIL+"="+email,null);
+        contentValues.put(DBdesign.USER_TABLE_INFO_COLUM_PASSWORD,password);
+        db.update(DBdesign.USER_TABLE_NAME,contentValues,DBdesign.USER_TABLE_INFO_COLUM_EMAIL+"="+email,null);
         db.close();
     }
 
     public void update(String user_name, String password, String email) {
+        db = sqLiteUtil.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
-        contentValues.put(User.USER_TABLE_INFO_COLUM_PASSWORD,password);
-        contentValues.put(User.USER_TABLE_INFO_COLUM_USERNAME,user_name);
-        db.update(User.USER_TABLE_NAME,contentValues,User.USER_TABLE_INFO_COLUM_EMAIL+"="+email,null);
+        contentValues.put(DBdesign.USER_TABLE_INFO_COLUM_PASSWORD,password);
+        contentValues.put(DBdesign.USER_TABLE_INFO_COLUM_USERNAME,user_name);
+        db.update(DBdesign.USER_TABLE_NAME,contentValues,DBdesign.USER_TABLE_INFO_COLUM_EMAIL+"="+email,null);
         db.close();
     }
 
 
     public User getUser(String pemail) {
-        String querySQL= "select * from " + User.USER_TABLE_NAME + " where "+User.USER_TABLE_INFO_COLUM_EMAIL+"='"+pemail+"' and " + User.USER_TABLE_INFO_COLUM_STATUS + "=1";
+        db = sqLiteUtil.getWritableDatabase();
+        String querySQL= "select * from " + DBdesign.USER_TABLE_NAME + " where "+DBdesign.USER_TABLE_INFO_COLUM_EMAIL+"='"+pemail+"' and " + DBdesign.USER_TABLE_INFO_COLUM_STATUS + "=1";
         //System.out.println(querySQL);
         Cursor cursor = db.rawQuery(querySQL, null);
         User userObj = null;
-
         while (cursor.moveToNext()) {
-            String username = cursor.getString(cursor.getColumnIndex(User.USER_TABLE_INFO_COLUM_USERNAME));
-            String password = cursor.getString(cursor.getColumnIndex(User.USER_TABLE_INFO_COLUM_PASSWORD));
-            String email = cursor.getString(cursor.getColumnIndex(User.USER_TABLE_INFO_COLUM_EMAIL));
-            int statusInt = cursor.getInt(cursor.getColumnIndex(User.USER_TABLE_INFO_COLUM_STATUS));
+            int userid = cursor.getInt(cursor.getColumnIndex(DBdesign.USER_TABLE_INFO_COLUM_ID));
+            String username = cursor.getString(cursor.getColumnIndex(DBdesign.USER_TABLE_INFO_COLUM_USERNAME));
+            String password = cursor.getString(cursor.getColumnIndex(DBdesign.USER_TABLE_INFO_COLUM_PASSWORD));
+            String email = cursor.getString(cursor.getColumnIndex(DBdesign.USER_TABLE_INFO_COLUM_EMAIL));
+            int statusInt = cursor.getInt(cursor.getColumnIndex(DBdesign.USER_TABLE_INFO_COLUM_STATUS));
             boolean status = (statusInt == 1) ? true:false;
-            userObj = new User(username, password, email, status);
+            userObj = new User(userid, username, password, email, status);
         }
         cursor.close();
+        db.close();
         return userObj;
     }
 
