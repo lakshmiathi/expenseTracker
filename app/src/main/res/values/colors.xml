@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="nav_colors">#232523</color>
+    <color name="nav_colors">#030303</color>
     <color name="colorPrimaryDark">#529967</color>
 
     <color name="colorPrimary">#e7e8ed</color>
     <color name="colorAccent">#ff4081</color>
     <color name="colorToolBar">#8ee152</color>
+    <color name="colorAccentDark">#438b0f</color>
 </resources>
