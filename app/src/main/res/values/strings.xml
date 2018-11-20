@@ -93,11 +93,12 @@
     <string name="title_activity_expenses">ExpensesActivity</string>
 
 
-
-
     <!-- session manager -->
     <string name="KEY_ID">USER_ID</string>
     <string name="KEY_PWD">USER_PWD</string>
     <string name="KEY_USERNAME">USER_NAME</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 </resources>

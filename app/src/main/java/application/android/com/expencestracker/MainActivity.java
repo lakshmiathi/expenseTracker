@@ -33,6 +33,7 @@ public class MainActivity extends AppCompatActivity {
     private ExpensesFragment expensesFragment;
     private StatisticsFragment statisticsFragment;
     private AboutUsFragment aboutUsFragment;
+    private BarFragment barFragment;
 
     private FrameLayout mainFrame;
     public static String username;
@@ -72,6 +73,7 @@ public class MainActivity extends AppCompatActivity {
         statisticsFragment = new StatisticsFragment();
         expensesFragment= new ExpensesFragment();
         aboutUsFragment = new AboutUsFragment();
+        barFragment= new BarFragment();
 
        setFragment(homeFragment);
         Bundle bundle=new Bundle();
@@ -99,6 +101,9 @@ public class MainActivity extends AppCompatActivity {
                         return true;
                     case R.id.Statistics:
                         setFragment(statisticsFragment);
+                        return true;
+                    case R.id.BarChart:
+                        setFragment(barFragment);
                         return true;
                     case R.id.AboutUs:
                         setFragment(aboutUsFragment);
