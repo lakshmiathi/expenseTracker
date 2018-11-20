@@ -1,6 +1,15 @@
 package application.android.com.expencestracker.DBImp;
 
 public class DBdesign {
+
+    public static final String DBNAME = "extrack.db";
+    public static final String USER_TABLE_NAME = "user_record";
+    public static final String USER_TABLE_INFO_COLUM_ID = "userid";
+    public static final String USER_TABLE_INFO_COLUM_USERNAME = "username";
+    public static final String USER_TABLE_INFO_COLUM_PASSWORD = "password";
+    public static final String USER_TABLE_INFO_COLUM_EMAIL = "email";
+    public static final String USER_TABLE_INFO_COLUM_STATUS = "status";
+
     public static final String EXPENSE_TABLE_NAME = "user_expense_record";
     public static final String EXPENSE_TABLE_INFO_COLUM_ID = "expenseid";
     public static final String EXPENSE_TABLE_INFO_COLUM_AMOUNT = "amount";

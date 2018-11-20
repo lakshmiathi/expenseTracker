@@ -2,14 +2,6 @@ package application.android.com.expencestracker.Model;
 
 public class User {
 
-    public static final String DBNAME = "extrack.db";
-    public static final String USER_TABLE_NAME = "user_record";
-    public static final String USER_TABLE_INFO_COLUM_ID = "userid";
-    public static final String USER_TABLE_INFO_COLUM_USERNAME = "username";
-    public static final String USER_TABLE_INFO_COLUM_PASSWORD = "password";
-    public static final String USER_TABLE_INFO_COLUM_EMAIL = "email";
-    public static final String USER_TABLE_INFO_COLUM_STATUS = "status";
-
     private int userId;
     private String username;
     private String password;
