@@ -9,7 +9,7 @@
     <ListView
         android:id="@+id/Explistview"
         android:layout_width="match_parent"
-        android:layout_height="444dp"
+        android:layout_height="500dp"
         android:addStatesFromChildren="true"
         android:alwaysDrawnWithCache="false"
         android:animateLayoutChanges="false"

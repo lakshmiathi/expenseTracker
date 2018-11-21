@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.app.ListFragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -64,7 +65,10 @@ public class ExpensesFragment extends Fragment {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 TextView item_view = (TextView) view.findViewById(R.id.item_Id);
                 String itemId = item_view.getText().toString();
-                System.out.println(itemId);
+                FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
+                AboutUsFragment aboutUsFragment = new AboutUsFragment();
+                ft.replace(R.id.main_frame,aboutUsFragment);
+                ft.commit();
                 //Intent objIndent = new Intent(getApplicationContext(), ExpenseDetailActivity.class);
                 /*objIndent.putExtra("username", username);
                 objIndent.putExtra("expense_Id", Integer.parseInt(itemId));*/
