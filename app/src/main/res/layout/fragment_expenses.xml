@@ -9,7 +9,7 @@
     <ListView
         android:id="@+id/Explistview"
         android:layout_width="match_parent"
-        android:layout_height="500dp"
+        android:layout_height="match_parent"
         android:addStatesFromChildren="true"
         android:alwaysDrawnWithCache="false"
         android:animateLayoutChanges="false"
@@ -19,6 +19,6 @@
         android:clipToPadding="true"
         android:drawSelectorOnTop="false"
         android:foregroundGravity="center_vertical"
-        android:paddingRight="16dp"></ListView>
+        android:paddingRight="16dp" />
 
 </FrameLayout>
