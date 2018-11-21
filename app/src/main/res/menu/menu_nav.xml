@@ -18,7 +18,12 @@
     <item
         android:id="@+id/Statistics"
         android:icon="@drawable/statistics_icon"
-        android:title="Statistics"></item>
+        android:title="Pie Chart"></item>
+
+    <item
+        android:id="@+id/BarChart"
+        android:icon="@drawable/bar_chart"
+        android:title="Bar Chart"></item>
 
     <item
         android:title="About Us"
