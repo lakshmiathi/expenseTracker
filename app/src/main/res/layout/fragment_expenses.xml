@@ -6,9 +6,19 @@
     tools:context=".ExpensesFragment">
 
     <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <ListView
+        android:id="@+id/Explistview"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="expenses" />
+        android:layout_height="444dp"
+        android:addStatesFromChildren="true"
+        android:alwaysDrawnWithCache="false"
+        android:animateLayoutChanges="false"
+        android:animationCache="true"
+        android:backgroundTint="@color/colorAccentDark"
+        android:clipChildren="true"
+        android:clipToPadding="true"
+        android:drawSelectorOnTop="false"
+        android:foregroundGravity="center_vertical"
+        android:paddingRight="16dp"></ListView>
 
 </FrameLayout>
