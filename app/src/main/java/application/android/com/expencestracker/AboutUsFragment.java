@@ -8,6 +8,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.AnimationUtils;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.BaseExpandableListAdapter;
@@ -21,6 +22,7 @@ import android.widget.TextView;
  * A simple {@link Fragment} subclass.
  */
 public class AboutUsFragment extends Fragment {
+    TextView textView;
 
 
 
@@ -36,6 +38,11 @@ public class AboutUsFragment extends Fragment {
 
         View view = inflater.inflate(R.layout.fragment_about_us, container, false);
         ExpandableListView expandableListView =(ExpandableListView)view.findViewById(R.id.Explistview);
+        textView=(TextView)view.findViewById(R.id.textView3);
+        textView.setText("Thanks for using ExTrack");
+        textView.setTypeface(null,Typeface.BOLD);
+        textView.setTextSize(20f);
+        textView.startAnimation(AnimationUtils.loadAnimation(getContext(),R.anim.sequential_animation));
         expandableListView.setAdapter(new ExpandabelListAdoptor());
 
         return view;
@@ -46,7 +53,8 @@ public class AboutUsFragment extends Fragment {
 
         private String[] aboutUs={"Introduction","Value Proposition","Contact Us"};
         private String[][] child={
-                {"ExTrack is one stop Solution for all your expense management needs." +
+                {
+                        "ExTrack is one stop Solution for all your expense management needs." +
                         "ExTrack aims to provide a hassle free and enjoyable" +
                         "expense management experience for all users across world." +
                         "ExTrack is making a conscious effort to bring the power of Expense Management" +
@@ -101,6 +109,7 @@ public class AboutUsFragment extends Fragment {
             textView.setText(getGroup(groupPosition).toString());
             textView.setTypeface(null,Typeface.BOLD_ITALIC);
             textView.setTextColor(Color.BLACK);
+            textView.setTextSize(18f);
             return textView;
         }
 

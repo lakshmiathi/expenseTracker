@@ -41,7 +41,7 @@ public class HomeFragment extends Fragment {
         String name =b.getString(username);
 
         textView.setText("Welcome "+ name);
-       textView.startAnimation(AnimationUtils.loadAnimation(getContext(),R.anim.bounce_interpolator));
+       textView.startAnimation(AnimationUtils.loadAnimation(getContext(),R.anim.slide_animation));
         //Animation anime = AnimationUtils.loadAnimation(getContext(),R.anim.bounce_interpolator);
         //textView.startAnimation(anime);
 

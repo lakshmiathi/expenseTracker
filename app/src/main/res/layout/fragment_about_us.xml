@@ -14,9 +14,12 @@
 
 
     <ExpandableListView
+
+       android:childDivider="@android:color/transparent"
+        android:padding="10dp"
         android:id="@+id/Explistview"
         android:layout_width="wrap_content"
-        android:layout_height="425dp"
+        android:layout_height="378dp"
         android:addStatesFromChildren="true"
         android:alwaysDrawnWithCache="false"
         android:animateLayoutChanges="false"
@@ -27,5 +30,12 @@
         android:drawSelectorOnTop="false"
         android:foregroundGravity="center_vertical"
         android:paddingRight="16dp"></ExpandableListView>
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="292dp"
+        android:layout_height="454dp"
+        android:paddingTop="400dp"
+        android:text="TextView" />
 
 </FrameLayout>
