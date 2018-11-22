@@ -63,7 +63,7 @@ public class MainActivity extends AppCompatActivity {
         }
 
         HashMap<String, String> usr  = this.session.getUserDetails();
-        //user_id = usr.get(KEY_ID);
+        user_id = usr.get(getResources().getString(R.string.KEY_USERID));
         user_name = usr.get(getResources().getString(R.string.KEY_USERNAME));
 
         TextView tv = (TextView) findViewById(R.id.tv_UserId);
@@ -123,6 +123,9 @@ public class MainActivity extends AppCompatActivity {
         FragmentTransaction fragmentTransaction=getSupportFragmentManager().beginTransaction();
         fragmentTransaction.replace(R.id.main_frame,fragment);
         fragmentTransaction.commit();
+        Bundle bundle = new Bundle();
+        bundle.putString("ID",String.valueOf(user_id));
+        fragment.setArguments(bundle);
     }
 
 

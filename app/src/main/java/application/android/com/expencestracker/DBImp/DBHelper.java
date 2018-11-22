@@ -27,7 +27,7 @@ public class DBHelper extends SQLiteOpenHelper {
         createExpenseTable.append("CREATE TABLE IF NOT EXISTS ");
         createExpenseTable.append(DBdesign.EXPENSE_TABLE_NAME + "(");
         createExpenseTable.append(DBdesign.EXPENSE_TABLE_INFO_COLUM_ID + " integer primary key autoincrement ,");
-        createExpenseTable.append(DBdesign.EXPENSE_TABLE_INFO_COLUM_AMOUNT + " varchar(10),");
+        createExpenseTable.append(DBdesign.EXPENSE_TABLE_INFO_COLUM_AMOUNT + " real,");
         createExpenseTable.append(DBdesign.EXPENSE_TABLE_INFO_COLUM_CATEGORY + " varchar(20),");
         createExpenseTable.append(DBdesign.EXPENSE_TABLE_INFO_COLUM_DATE + " text,");
         createExpenseTable.append(DBdesign.EXPENSE_TABLE_INFO_COLUM_USER + " integer,");
