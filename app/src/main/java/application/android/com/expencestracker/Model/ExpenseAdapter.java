@@ -41,9 +41,9 @@ public class ExpenseAdapter extends ArrayAdapter {
             item_date.setText(DateUtil.dateToString(this.exp_list.get(position).getDate()));
             item_money.setText(String.format("%.2f", this.exp_list.get(position).getAmount()));
             item_image.setImageResource(R.drawable.splash);
-            //item_image.setImageResource(R.drawable.class.getDeclaredField(this.exp_list.get(position).getCategory()).getInt(R.drawable.class));
+            item_image.setImageResource(R.drawable.class.getDeclaredField(this.exp_list.get(position).getCategory()).getInt(R.drawable.class));
         } catch (Exception e) {
-            //item_image.setImageResource(R.drawable.entertainment);
+            //item_image.setImageResource(R.drawable.other);
         }
         return rowView;
     }

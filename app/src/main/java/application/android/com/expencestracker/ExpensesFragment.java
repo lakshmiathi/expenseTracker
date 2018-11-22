@@ -66,8 +66,8 @@ public class ExpensesFragment extends Fragment {
                 TextView item_view = (TextView) view.findViewById(R.id.item_Id);
                 String itemId = item_view.getText().toString();
                 FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
-                AboutUsFragment aboutUsFragment = new AboutUsFragment();
-                ft.replace(R.id.main_frame,aboutUsFragment);
+                ExpenseDetailFragment detail = new ExpenseDetailFragment();
+                ft.replace(R.id.main_frame,detail);
                 ft.commit();
                 //Intent objIndent = new Intent(getApplicationContext(), ExpenseDetailActivity.class);
                 /*objIndent.putExtra("username", username);
