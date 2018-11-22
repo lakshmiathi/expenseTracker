@@ -3,7 +3,7 @@ package application.android.com.expencestracker.Model;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.regex.Pattern;
+
 
 /**
  * This class contains several methods which are used to verify whether the
@@ -12,7 +12,7 @@ import java.util.regex.Pattern;
  */
 
 public class DateUtil {
-
+    static SimpleDateFormat formatter = new SimpleDateFormat("yyyy/MM/dd");
     /**
      * Verify the certain format of the String. If the format is "yyyy/MM/dd",
      * return an object of Date by parsing the String, throw an parseException and
@@ -22,7 +22,6 @@ public class DateUtil {
      * @return an object of Date
      */
     public static Date createDate(String dateStr) {
-        SimpleDateFormat formatter = new SimpleDateFormat("yyyy/MM/dd");
         formatter.setLenient(false);
         try {
             // try to parse the String, if it is in correct format, return an object of Date
@@ -30,9 +29,8 @@ public class DateUtil {
             Date date = formatter.parse(dateStr);
             return date;
         } catch (ParseException e) {
-            // if the string is not in correct format, print an error messege.
-            System.out.println("please Enter the correct format of date");
-            return null;
+            // if the string is not in correct format, throw an exception.
+            throw new IllegalArgumentException("Date format is incorrect!");
         }
     }
 
@@ -44,13 +42,11 @@ public class DateUtil {
      * @return a string with format of "yyyy/MM/dd"
      */
     public static String dateToString(Date date) {
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");
-        dateFormat.setLenient(false);
+        formatter.setLenient(false);
         // to convert Date to String, use format method of SimpleDateFormat class.
-        String strDate = dateFormat.format(date);
+        String strDate = formatter.format(date);
         return strDate;
     }
-
 
 }
 
