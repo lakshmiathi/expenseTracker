@@ -125,6 +125,7 @@ public class MainActivity extends AppCompatActivity {
         fragmentTransaction.commit();
         Bundle bundle = new Bundle();
         bundle.putString("ID",String.valueOf(user_id));
+        bundle.putString(username,user_name);
         fragment.setArguments(bundle);
     }
 
