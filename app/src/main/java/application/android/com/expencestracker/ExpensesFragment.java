@@ -21,15 +21,13 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 
 import application.android.com.expencestracker.DBImp.ExpenseDaoImpl;
-import application.android.com.expencestracker.Model.Expense;
 import application.android.com.expencestracker.Model.DateUtil;
+import application.android.com.expencestracker.Model.Expense;
 import application.android.com.expencestracker.Model.UserSessionManager;
 
 
@@ -160,11 +158,12 @@ public class ExpensesFragment extends Fragment {
                             expensedata.add(expenserecord);
                             spinner.setSelection(0);
                             Toast.makeText(getActivity(),"Expense added", Toast.LENGTH_SHORT).show();
+                            expense_amount.getText().clear();
+                            expense_dt.setText("");
+
 
                         }
 
-                        expense_amount.getText().clear();
-                        expense_dt.setText("");
 
 
                     }
