@@ -129,8 +129,6 @@ public class ExpensesFragment extends Fragment {
 
                 });
 
-
-
                 //date picker is displayed to select date.
               displayDate=(TextView)Expdialog.findViewById(R.id.text_Date);
                 displayDate.setOnClickListener(new View.OnClickListener() {
@@ -141,10 +139,6 @@ public class ExpensesFragment extends Fragment {
 
 
                 });
-
-
-
-
 
                 //Add button on click saves data into database.
                 button_Add=(Button) Expdialog.findViewById(R.id.button_Add);
@@ -157,20 +151,21 @@ public class ExpensesFragment extends Fragment {
 
                         Log.d("Record check","records are "+ exp + expense_category + expense_date_record + user_id);
                         //Expense expenserecord = new Expense();
-                        Expense expenserecord = new Expense(Double.parseDouble(exp),expense_category,DateUtil.createDate(expense_date),Integer.parseInt(user_id));
-                        expensedata.add(expenserecord);
-                        spinner.setSelection(0);
+                        if(exp.length()==0 || Double.parseDouble(exp)< 0){
+                            Toast.makeText(getActivity(),"Enter correct amount!", Toast.LENGTH_SHORT).show();
+                        }else if(expense_date==null|| expense_date == ""){
+                            Toast.makeText(getActivity(),"Enter correct date!", Toast.LENGTH_SHORT).show();
+                        }else{
+                            Expense expenserecord = new Expense(Double.parseDouble(exp), expense_category, DateUtil.createDate(expense_date), Integer.parseInt(user_id));
+                            expensedata.add(expenserecord);
+                            spinner.setSelection(0);
+                            Toast.makeText(getActivity(),"Expense added", Toast.LENGTH_SHORT).show();
 
-
-
+                        }
 
                         expense_amount.getText().clear();
                         expense_dt.setText("");
-                        //initialDate();
 
-
-                        //onCreateView()
-                        Toast.makeText(getActivity(),"Expense added", Toast.LENGTH_SHORT).show();
 
                     }
 
