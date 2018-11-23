@@ -105,4 +105,20 @@
 
     <string name="KEY_USERID">USER_ID</string>
 
+    //String.xml
+
+
+    <!-- expense Popup -->
+    <string name ="spinner_title">prompt</string>
+    <string name="expenses">Expenses</string>
+    <string-array name="Categories">
+        <item>Select Category</item>
+        <item>Grocery</item>
+        <item>Rent</item>
+        <item>Shopping</item>
+        <item>Travel</item>
+        <item>Others</item>
+    </string-array>
+
+
 </resources>

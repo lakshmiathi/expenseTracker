@@ -12,7 +12,9 @@ import java.util.Date;
  */
 
 public class DateUtil {
-    static SimpleDateFormat formatter = new SimpleDateFormat("yyyy/MM/dd");
+   // static SimpleDateFormat formatter = new SimpleDateFormat("yyyy/MM/dd");
+   static SimpleDateFormat formatter = new SimpleDateFormat("MM/dd/YYYY");
+
     /**
      * Verify the certain format of the String. If the format is "yyyy/MM/dd",
      * return an object of Date by parsing the String, throw an parseException and
