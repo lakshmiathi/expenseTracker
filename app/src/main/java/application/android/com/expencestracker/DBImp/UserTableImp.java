@@ -12,7 +12,7 @@ public class UserTableImp {
     private SQLiteDatabase db;
 
     public UserTableImp(Context context) {
-        sqLiteUtil = new DBHelper(context, 2);
+        sqLiteUtil = new DBHelper(context, 3);
         db = sqLiteUtil.getWritableDatabase();
     }
 

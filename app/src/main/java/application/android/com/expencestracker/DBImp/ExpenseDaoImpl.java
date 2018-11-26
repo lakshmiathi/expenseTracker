@@ -16,7 +16,7 @@ public class ExpenseDaoImpl{
     private SQLiteDatabase db;
 
     public ExpenseDaoImpl(Context context) {
-        sqLiteUtil = new DBHelper(context, 2);
+        sqLiteUtil = new DBHelper(context, 3);
         db = sqLiteUtil.getWritableDatabase();
     }
     //insert a new expense item to database by giving an Expense object, you don't need to specify expense id
@@ -44,7 +44,7 @@ public class ExpenseDaoImpl{
     public List<Expense> getExpenseList(int userid) {
         db = sqLiteUtil.getWritableDatabase();
         List<Expense> list = new ArrayList<Expense>();
-        String querySql="select * from " + DBdesign.EXPENSE_TABLE_NAME + " where " + DBdesign.EXPENSE_TABLE_INFO_COLUM_USER + "='" + userid + "' order by " + DBdesign.EXPENSE_TABLE_INFO_COLUM_DATE+ " desc";
+        String querySql="select * from " + DBdesign.EXPENSE_TABLE_NAME + " where " + DBdesign.EXPENSE_TABLE_INFO_COLUM_USER + "=" + userid + " order by " + DBdesign.EXPENSE_TABLE_INFO_COLUM_DATE+ " desc";
         Cursor cursor = db.rawQuery(querySql, null);
         Expense expense = null;
 
@@ -122,6 +122,19 @@ public class ExpenseDaoImpl{
         db.update(DBdesign.EXPENSE_TABLE_NAME,contentValues,DBdesign.EXPENSE_TABLE_INFO_COLUM_ID + "=" + expense_id ,null);
         //db.update(DBdesign.EXPENSE_TABLE_NAME,contentValues,DBdesign.EXPENSE_TABLE_INFO_COLUM_ID + "=" + expense_id + " and " + DBdesign.EXPENSE_TABLE_INFO_COLUM_USER +"="+ user,null);
         db.close();
+    }
+
+
+    public double sumAmountByUser(int userid) {
+        db = sqLiteUtil.getWritableDatabase();
+        String querySql="select sum(" + DBdesign.EXPENSE_TABLE_INFO_COLUM_AMOUNT + ") as sum from " + DBdesign.EXPENSE_TABLE_NAME + " where " + DBdesign.EXPENSE_TABLE_INFO_COLUM_USER + "=" + userid;
+        Cursor cursor = db.rawQuery(querySql, null);
+        double dou = 0;
+        while (cursor.moveToNext()) {
+            dou = cursor.getDouble(cursor.getColumnIndex("sum"));
+        }
+        db.close();
+        return dou;
     }
 
     public void closeDBConnection(){
