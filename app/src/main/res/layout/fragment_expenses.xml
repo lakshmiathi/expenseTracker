@@ -65,12 +65,15 @@
         android:id="@+id/fab_Addexpens"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginTop="24dp"
         android:onClick="ShowPopup"
         android:src="@android:drawable/ic_input_add"
         app:backgroundTint="@color/colorAccentDark"
         app:fabSize="normal"
-        tools:layout_editor_absoluteX="276dp"
-        tools:layout_editor_absoluteY="0dp" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 
 </android.support.constraint.ConstraintLayout>
