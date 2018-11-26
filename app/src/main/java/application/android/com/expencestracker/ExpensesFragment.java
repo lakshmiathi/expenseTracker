@@ -1,9 +1,12 @@
 package application.android.com.expencestracker;
 
 
+import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.content.Context;
+import android.content.DialogInterface;
+import android.database.Cursor;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -17,6 +20,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -25,10 +29,13 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 
+import application.android.com.expencestracker.DBImp.DBdesign;
 import application.android.com.expencestracker.DBImp.ExpenseDaoImpl;
 import application.android.com.expencestracker.Model.DateUtil;
 import application.android.com.expencestracker.Model.Expense;
 import application.android.com.expencestracker.Model.UserSessionManager;
+import application.android.com.expencestracker.DBImp.DBHelper;
+
 
 
 /**
@@ -49,6 +56,7 @@ public class ExpensesFragment extends Fragment {
     TextView displayDate;
     Calendar calendar;
 
+    private DBHelper expenseitems;
 
     public ExpensesFragment() {
         // Required empty public constructor
@@ -59,18 +67,123 @@ public class ExpensesFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
+        final ExpenseDaoImpl expenseDao = new ExpenseDaoImpl(getContext());
+
+        /* Retrieve the user id from Shared preference */
 
         this._context = this.getContext();
         this.session = new UserSessionManager(this._context);
         HashMap<String, String> usr  = this.session.getUserDetails();
         Log.d("Check ","check "+usr.get(KEY_USERID));
         user_id = usr.get(KEY_USERID);
+
+        /* Retrieve the expense list from the database  */
+
+        final Cursor expesnecursor = expenseDao.getExpenseList(Integer.parseInt(user_id));
+        final View view = inflater.inflate(R.layout.fragment_expenses, container, false);
+
+        final ListView list_expenses= (ListView)view.findViewById(R.id.listview_expenses);
+        final TextView  total_expenses = (TextView)view.findViewById(R.id.textview_expensetotal);
+
+        /* Retrieve the total expense for the particular user */
+
+        final Double totalexpenses = expenseDao.sumAmountByUser(Integer.parseInt(user_id));
+        total_expenses.setText(totalexpenses.toString());
+
+        /* Display of the expenses in the list view using cursor adapter */
+
+        final CustomAdapterList adapterexpense = new CustomAdapterList(this.getContext(),expesnecursor);
+        list_expenses.setAdapter(adapterexpense);
+
+        list_expenses.setOnItemClickListener(new AdapterView.OnItemClickListener(){
+
+            /* Alert box to enable user to manage the expense - Delete and Edit the expense */
+
+            @Override
+            public void onItemClick(final AdapterView<?> parent, final View view, final int position, long id) {
+
+                AlertDialog.Builder alert_menu = new AlertDialog.Builder(getContext());
+                alert_menu.setTitle("Manage Expense");
+                alert_menu.setMessage("User can EDIT or DELETE of the expenses");
+
+                //  Edit the expense data
+
+
+                alert_menu.setPositiveButton("EDIT", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+
+                        Toast.makeText(getContext(),"Position"+position,Toast.LENGTH_LONG).show();
+
+                        //  to call the add dialog box with the data populated
+
+                    }
+                });
+
+                //  Delete the selected expense
+
+
+                alert_menu.setNegativeButton("DELETE", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+
+                        AlertDialog.Builder deletealert = new AlertDialog.Builder(getContext());
+                        deletealert.setTitle("Delete expense item ?");
+
+                        deletealert.setMessage("This will delete the expense item from your list. ");
+
+                        deletealert.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface arg0, int arg1) {
+                                arg0.cancel();
+                            }
+                        });
+
+                        deletealert.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+
+                                Cursor cursor = (Cursor) parent.getItemAtPosition(position);
+                                cursor.moveToPosition(position);
+                                final int item_id = cursor.getInt(cursor.getColumnIndex(DBdesign.EXPENSE_TABLE_INFO_COLUM_ID));
+
+                                ExpenseDaoImpl expenseDao = new ExpenseDaoImpl(getContext());
+                                expenseDao.delete(item_id);
+                                Cursor expesnecursor = expenseDao.getExpenseList(Integer.parseInt(user_id));
+
+                                adapterexpense.changeCursor(expesnecursor);
+                                list_expenses.setAdapter(adapterexpense);
+
+                                Double totalexpenses_delete = expenseDao.sumAmountByUser(Integer.parseInt(user_id));
+                                total_expenses.setText(totalexpenses_delete.toString());
+
+                            }
+                        });
+                        deletealert.show();
+                    }
+                });
+                alert_menu.show();
+            }
+        });
+
+
+        list_expenses.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+
+                Toast.makeText(getContext(),"Update Item_id",Toast.LENGTH_LONG).show();
+
+                return false;
+
+            }
+        });
+
         expensedata = new ExpenseDaoImpl(getContext());
 
+        // Add the expense
 
-        // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_expenses, container, false);
         Expdialog = new Dialog(this.getActivity());
+
         //Onclick of Floating Action Button opens the popupwindow to add expenses manually.
 
         FloatingActionButton floatingActionButton=(FloatingActionButton)view.findViewById(R.id.fab_Addexpens);
@@ -128,7 +241,7 @@ public class ExpensesFragment extends Fragment {
                 });
 
                 //date picker is displayed to select date.
-              displayDate=(TextView)Expdialog.findViewById(R.id.text_Date);
+                displayDate=(TextView)Expdialog.findViewById(R.id.text_Date);
                 displayDate.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -175,6 +288,17 @@ public class ExpensesFragment extends Fragment {
                     @Override
                     public void onClick(View v) {
                         Expdialog.dismiss();
+                        Cursor expesnecursor = expenseDao.getExpenseList(Integer.parseInt(user_id));
+
+                        adapterexpense.changeCursor(expesnecursor);
+                        list_expenses.setAdapter(adapterexpense);
+
+                        TextView  total_expenses_delete = (TextView)view.findViewById(R.id.textview_expensetotal);
+                        total_expenses_delete.clearComposingText();
+                        Double totalexpenses_delete = expenseDao.sumAmountByUser(Integer.parseInt(user_id));
+                        total_expenses_delete.setText(totalexpenses_delete.toString());
+
+
                     }
                 });
 

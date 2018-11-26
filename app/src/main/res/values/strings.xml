@@ -97,6 +97,10 @@
     <string name="KEY_EMAIL">USER_EMAIL</string>
     <string name="KEY_PWD">USER_PWD</string>
     <string name="KEY_USERNAME">USER_NAME</string>
+    <string name="textview_expense">Expense</string>
+    <string name="textview_amount">Amount</string>
+    <string name="textview_date">Date</string>
+    <string name="label_expensetotal">Total Expense</string>
 
 
     <!-- TODO: Remove or change this placeholder text -->
