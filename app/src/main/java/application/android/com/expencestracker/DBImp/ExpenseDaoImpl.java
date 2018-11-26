@@ -40,13 +40,16 @@ public class ExpenseDaoImpl{
         db.close();
     }
 
-    //get an arraylist of all the expense items(a specify user) from database by giving an user id
-    public List<Expense> getExpenseList(int userid) {
-        db = sqLiteUtil.getWritableDatabase();
+    //get an cursor of all the expense items(a specify user) from database by giving an user id
+
+    public Cursor getExpenseList(int userid) {
+  //      public List<Expense> getExpenseList(int userid) {
+
+            db = sqLiteUtil.getWritableDatabase();
         List<Expense> list = new ArrayList<Expense>();
-        String querySql="select * from " + DBdesign.EXPENSE_TABLE_NAME + " where " + DBdesign.EXPENSE_TABLE_INFO_COLUM_USER + "=" + userid + " order by " + DBdesign.EXPENSE_TABLE_INFO_COLUM_DATE+ " desc";
+        String querySql="select expenseid _id,* from " + DBdesign.EXPENSE_TABLE_NAME + " where " + DBdesign.EXPENSE_TABLE_INFO_COLUM_USER + "=" + userid + " order by " + DBdesign.EXPENSE_TABLE_INFO_COLUM_DATE+ " desc";
         Cursor cursor = db.rawQuery(querySql, null);
-        Expense expense = null;
+       /* Expense expense = null;
 
         while (cursor.moveToNext()) {
             int id = cursor.getInt(cursor.getColumnIndex(DBdesign.EXPENSE_TABLE_INFO_COLUM_ID));
@@ -59,7 +62,8 @@ public class ExpenseDaoImpl{
         }
         cursor.close();
         db.close();
-        return list;
+        return list;*/
+       return cursor;
     }
 
     //get an arraylist of all the expense items from database by giving a condition string
@@ -133,7 +137,7 @@ public class ExpenseDaoImpl{
         while (cursor.moveToNext()) {
             dou = cursor.getDouble(cursor.getColumnIndex("sum"));
         }
-        db.close();
+        //   db.close();
         return dou;
     }
 
