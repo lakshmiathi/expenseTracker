@@ -16,12 +16,13 @@ public class DateUtil {
    static SimpleDateFormat formatter = new SimpleDateFormat("MM/dd/YYYY");
 
     /**
-     * Verify the certain format of the String. If the format is "yyyy/MM/dd",
+     * Verify the certain format of the String. If the format is "MM/dd/YYYY",
      * return an object of Date by parsing the String, throw an parseException and
      * print an exception messege otherwise.
      *
      * @param dateStr The string to be verified
      * @return an object of Date
+     * @throws IllegalArgumentException if the input string isn't in a correct format.
      */
     public static Date createDate(String dateStr) {
         formatter.setLenient(false);
@@ -38,7 +39,7 @@ public class DateUtil {
 
 
     /**
-     * Convert an object of Date to a string with format of "yyyy/MM/dd".
+     * Convert an object of Date to a string with format of "MM/dd/YYYY".
      *
      * @param date an object of Date to be transformed
      * @return a string with format of "yyyy/MM/dd"

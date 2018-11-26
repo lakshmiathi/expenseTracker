@@ -4,20 +4,26 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
-
 import java.util.HashMap;
-
 import application.android.com.expencestracker.DBImp.UserTableImp;
 import application.android.com.expencestracker.R;
 import application.android.com.expencestracker.loginActivity;
 
+/**
+ * The UserSessionManager class is used to record user login information, such as
+ * user name, password, user id, user just need to input user name and password
+ * one time, system will login automatically next time.
+ *
+ * @author Wei Wang
+ * @version 1.0
+ *
+ */
 public class UserSessionManager {
-
     SharedPreferences pref;
     SharedPreferences.Editor editor;
     Context _context;
     Resources res;
-
+    UserTableImp _userTable;
     private static int PRIVATE_MODE = 0;
     private static final String PREF_NAME = "SqlDemoPerf";
     private static final String IS_USER_LOGIN = "IsUserLoggedIn";
@@ -26,8 +32,9 @@ public class UserSessionManager {
     private String KEY_USERNAME;
     private String KEY_USERID;
 
-    UserTableImp _userTable;
-
+    /**
+     * Constructor for objects of class UserSessionManager.
+     */
     public UserSessionManager(Context context) {
         this._context = context;
         this.pref = this._context.getSharedPreferences(PREF_NAME, PRIVATE_MODE);
@@ -40,18 +47,28 @@ public class UserSessionManager {
         KEY_USERID = res.getString(R.string.KEY_USERID);
     }
 
+    /**
+     * The createUserLoginSession method puts user email and password in to SharedPreferences
+     * file to record the login information.
+     *
+     * @param email A email address user inputs
+     * @param pwd A password user inputs
+     *
+     */
     public void createUserLoginSession(String email, String pwd) {
         this.editor.putBoolean(IS_USER_LOGIN, true);
         this.editor.putString(KEY_EMAIL, email);
         this.editor.putString(KEY_PWD, pwd);
         this.editor.commit();
-
-/*        if (!this.CheckLogIn()) {
-            this.logoutUser();
-        }*/
     }
 
-    // Check the log in information.
+    /**
+     * The CheckLogIn method will read the login information from SharedPreferences
+     * and check if the login information is correct.
+     *
+     * @return {@code true} when login message is correct, otherwise {@code false}
+     *
+     */
     public boolean CheckLogIn() {
         boolean is_login = this.pref.getBoolean(IS_USER_LOGIN, false);
         if (is_login) {
@@ -68,6 +85,13 @@ public class UserSessionManager {
         return false;
     }
 
+    /**
+     * The getUserDetails method allow user to get user's information from SharedPreferences,
+     * like user name, user id, email address, etc.
+     *
+     * @return an hashmap which includes the user information.
+     *
+     */
     public HashMap<String, String> getUserDetails() {
         HashMap<String, String> usr = new HashMap<String, String>();
         usr.put(KEY_EMAIL, this.pref.getString(KEY_EMAIL, null));
@@ -78,10 +102,13 @@ public class UserSessionManager {
         return usr;
     }
 
+    /**
+     * The logoutUser method will clear all the information in SharedPreferences.
+     *
+     */
     public void logoutUser() {
         this.editor.clear();
         this.editor.commit();
-
         // Now Start the log in Activity again.
         Intent i = new Intent(this._context, loginActivity.class);
         // Closing all the activities.

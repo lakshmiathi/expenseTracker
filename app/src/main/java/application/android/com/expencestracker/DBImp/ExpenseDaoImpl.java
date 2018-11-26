@@ -7,19 +7,42 @@ import android.database.sqlite.SQLiteDatabase;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-
 import application.android.com.expencestracker.Model.DateUtil;
 import application.android.com.expencestracker.Model.Expense;
+
+
+/**
+ * This class is used to maintain the "user_expense_record" table in database,
+ * it provides some functions to manipulate the expense items table , e.g. add
+ * a new expense, update an expense, remove an expense, get expense list, etc.
+ *
+ * @author
+ * @version
+ *
+ */
 
 public class ExpenseDaoImpl{
     private DBHelper sqLiteUtil;
     private SQLiteDatabase db;
 
+    /**
+     * Constructor for objects of class ExpenseDaoImpl, the constructor will create
+     * a new database if there is no database.
+     *
+     */
     public ExpenseDaoImpl(Context context) {
         sqLiteUtil = new DBHelper(context, 3);
         db = sqLiteUtil.getWritableDatabase();
     }
-    //insert a new expense item to database by giving an Expense object, you don't need to specify expense id
+
+    /**
+     * The add method enables user to insert a new expense item to database by giving
+     * an Expense object.
+     *
+     * @param expense A new {@link Expense} to be added, if the task is expense, nothing
+     *               will be added
+     *
+     */
     public void add(Expense expense) {
         if (expense != null) {
             db = sqLiteUtil.getWritableDatabase();
@@ -31,23 +54,35 @@ public class ExpenseDaoImpl{
             db.insert(DBdesign.EXPENSE_TABLE_NAME, null, contentValues);
             db.close();
         }
-
     }
 
+    /**
+     * The delete method enables user to remove an expense record from the database with
+     * a given expense id.
+     *
+     * @param expense_id the expense id which user want to remove.
+     *
+     */
     public void delete(int expense_id) {
         db = sqLiteUtil.getWritableDatabase();
         db.delete(DBdesign.EXPENSE_TABLE_NAME, DBdesign.EXPENSE_TABLE_INFO_COLUM_ID+" = ?", new String[]{String.valueOf(expense_id)});
         db.close();
     }
 
-    //get an arraylist of all the expense items(a specify user) from database by giving an user id
+    /**
+     * The getExpenseList method will return an arraylist of all the expense items with a
+     * specified user id to the user.
+     *
+     * @param userid the user id which user wants to search for.
+     * @return return an arraylist instance , if the user id isn't found, return null
+     *
+     */
     public List<Expense> getExpenseList(int userid) {
         db = sqLiteUtil.getWritableDatabase();
         List<Expense> list = new ArrayList<Expense>();
         String querySql="select * from " + DBdesign.EXPENSE_TABLE_NAME + " where " + DBdesign.EXPENSE_TABLE_INFO_COLUM_USER + "=" + userid + " order by " + DBdesign.EXPENSE_TABLE_INFO_COLUM_DATE+ " desc";
         Cursor cursor = db.rawQuery(querySql, null);
         Expense expense = null;
-
         while (cursor.moveToNext()) {
             int id = cursor.getInt(cursor.getColumnIndex(DBdesign.EXPENSE_TABLE_INFO_COLUM_ID));
             Double amount = cursor.getDouble(cursor.getColumnIndex(DBdesign.EXPENSE_TABLE_INFO_COLUM_AMOUNT));
@@ -62,7 +97,14 @@ public class ExpenseDaoImpl{
         return list;
     }
 
-    //get an arraylist of all the expense items from database by giving a condition string
+    /**
+     * The getExpenseList method will return an arraylist of all the expense items from
+     * database by giving a condition string.
+     *
+     * @param condition the condition statement which user wants to search for.
+     * @return return an arraylist instance
+     *
+     */
     public List<Expense> getExpenseList(String condition) {
         db = sqLiteUtil.getWritableDatabase();
         List<Expense> list = new ArrayList<Expense>();
@@ -74,7 +116,6 @@ public class ExpenseDaoImpl{
         }
         Cursor cursor = db.rawQuery(querySql, null);
         Expense expense = null;
-
         while (cursor.moveToNext()) {
             int id = cursor.getInt(cursor.getColumnIndex(DBdesign.EXPENSE_TABLE_INFO_COLUM_ID));
             Double amount = cursor.getDouble(cursor.getColumnIndex(DBdesign.EXPENSE_TABLE_INFO_COLUM_AMOUNT));
@@ -89,7 +130,14 @@ public class ExpenseDaoImpl{
         return list;
     }
 
-    //get an object of Expense by giving an expense item id
+    /**
+     * The getSingleExpense method will get an object of Expense by giving an expense item id.
+     *
+     *
+     * @param expense_id the expense id which user wants to get.
+     * @return return an expense instance
+     *
+     */
     public Expense getSingleExpense(int expense_id) {
         db = sqLiteUtil.getWritableDatabase();
         String selectQuery="Select * From " + DBdesign.EXPENSE_TABLE_NAME
@@ -112,7 +160,15 @@ public class ExpenseDaoImpl{
         return expense;
     }
 
-
+    /**
+     * The updateExpense method enables user to update an expense item to database.
+     *
+     * @param expense_id the item's expense id user want to update
+     * @param amount new amount user want to update
+     * @param category new category user want to update
+     * @param date new date user want to update
+     *
+     */
     public void updateExpense(int expense_id, double amount, String category, Date date) {
         db = sqLiteUtil.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
@@ -124,7 +180,14 @@ public class ExpenseDaoImpl{
         db.close();
     }
 
-
+    /**
+     * The sumAmountByUser method will get the total amount of expense of a specified user.
+     *
+     *
+     * @param userid the user id which user wants to get.
+     * @return return the total amount of expense
+     *
+     */
     public double sumAmountByUser(int userid) {
         db = sqLiteUtil.getWritableDatabase();
         String querySql="select sum(" + DBdesign.EXPENSE_TABLE_INFO_COLUM_AMOUNT + ") as sum from " + DBdesign.EXPENSE_TABLE_NAME + " where " + DBdesign.EXPENSE_TABLE_INFO_COLUM_USER + "=" + userid;
