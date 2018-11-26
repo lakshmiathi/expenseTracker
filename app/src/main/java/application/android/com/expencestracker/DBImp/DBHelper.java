@@ -4,7 +4,13 @@ import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
-
+/**
+ * The DBHelper class is used to setup the database.
+ *
+ * @author
+ * @version
+ *
+ */
 public class DBHelper extends SQLiteOpenHelper {
 
     public DBHelper(Context context, int version) {

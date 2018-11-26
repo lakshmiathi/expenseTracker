@@ -2,6 +2,14 @@ package application.android.com.expencestracker.Model;
 
 import java.util.Date;
 
+/**
+ * The Expense class represents a expense item with several properties, such as
+ * expense id, amount, category, date, user.
+ *
+ * @author
+ * @version 1.0
+ *
+ */
 public class Expense {
 
     private int expenseid;
