@@ -1,8 +1,12 @@
 package application.android.com.expencestracker;
 
 import android.app.Activity;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -11,6 +15,8 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.app.NotificationCompat;
+import android.support.v4.app.NotificationManagerCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
@@ -26,6 +32,10 @@ import java.util.HashMap;
 import application.android.com.expencestracker.Model.UserSessionManager;;
 
 public class MainActivity extends AppCompatActivity {
+
+    public static final int NOTIFICATION_ID=1;
+
+    public static final String CHANNEL_ID ="personal Notification";
 
     private static final String KEY_USERNAME = "USER_NAME";
     private BottomNavigationView mainnav;
@@ -46,6 +56,7 @@ public class MainActivity extends AppCompatActivity {
     private UserSessionManager session;
     String user_id;
     String user_name;
+    int value=10;
 
 
     @Override
@@ -78,6 +89,10 @@ public class MainActivity extends AppCompatActivity {
        setFragment(homeFragment);
         Bundle bundle=new Bundle();
         bundle.putString(username,user_name);
+        if(value==10){
+            createNotificationChannel();
+            creatNotification();
+        }
 
         homeFragment.setArguments(bundle);
 
@@ -117,6 +132,35 @@ public class MainActivity extends AppCompatActivity {
 
 
 
+    }
+
+    public void createNotificationChannel() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            CharSequence name = "personal Notification";
+
+            int importance = NotificationManager.IMPORTANCE_DEFAULT;
+
+            NotificationChannel channel = new NotificationChannel(CHANNEL_ID, name, importance);
+
+
+            NotificationManager notificationManager = getSystemService(NotificationManager.class);
+            notificationManager.createNotificationChannel(channel);
+        }
+    }
+
+    public void creatNotification(){
+        Intent intent =new Intent(getApplicationContext(),MainActivity.class);
+        PendingIntent resultPendingIntent=PendingIntent.getActivity(getApplicationContext(),2,intent,PendingIntent.FLAG_UPDATE_CURRENT);
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(getApplicationContext(),CHANNEL_ID);
+        builder.setSmallIcon(R.drawable.expenses)
+
+                .setContentTitle("You Exceeded your Limit of Expenses")
+                .setContentText("Please check your ExTrack to see your expenses")
+                .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+                .setAutoCancel(true)
+                .setContentIntent(resultPendingIntent);
+        NotificationManagerCompat notificationManagerCompat = NotificationManagerCompat.from(getApplicationContext());
+        notificationManagerCompat.notify(NOTIFICATION_ID,builder.build());
     }
 
     private void setFragment(Fragment fragment) {
