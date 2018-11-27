@@ -1,6 +1,8 @@
 package application.android.com.expencestracker;
 
 
+import android.content.Context;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -14,6 +16,10 @@ import com.github.mikephil.charting.data.BarEntry;
 import com.github.mikephil.charting.utils.ColorTemplate;
 
 import java.util.ArrayList;
+import java.util.List;
+
+import application.android.com.expencestracker.DBImp.DBHelper;
+import application.android.com.expencestracker.DBImp.ExpenseDaoImpl;
 
 
 /**
@@ -21,72 +27,56 @@ import java.util.ArrayList;
  */
 public class BarFragment extends Fragment {
 
-    BarChart chart ;
-    ArrayList<BarEntry> BARENTRY ;
-    ArrayList<String> BarEntryLabels ;
-    BarDataSet Bardataset ;
+    BarChart barChart ;
     BarData BARDATA ;
-
-
-
+    BarDataSet dataSet;
+    private DBHelper sqLiteUtil;
+    private SQLiteDatabase db;
+    public void ExpenseDaoImpl(Context context) {
+        sqLiteUtil = new DBHelper(context, 3);
+        db = sqLiteUtil.getWritableDatabase();
+    }
     public BarFragment() {
         // Required empty public constructor
     }
-
-
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-
         View view = inflater.inflate(R.layout.fragment_bar, container, false);
-        chart = (BarChart) view.findViewById(R.id.chart);
-
-
-
-
-        BARENTRY = new ArrayList<>();
-
-        BarEntryLabels = new ArrayList<String>();
-
-        AddValuesToBARENTRY();
-
-        AddValuesToBarEntryLabels();
-
-        Bardataset = new BarDataSet(BARENTRY, "Projects");
-
-        BARDATA = new BarData( BarEntryLabels, Bardataset);
-
-        Bardataset.setColors(ColorTemplate.JOYFUL_COLORS);
-
-        chart.setData(BARDATA);
-
-        chart.animateY(3000);
-        // Inflate the layout for this fragment
-
+        barChart = (BarChart) view.findViewById(R.id.chart);
+        createbarChart();
         return view;
-
     }
-    public void AddValuesToBARENTRY(){
-
-        BARENTRY.add(new BarEntry(2f, 0));
-        BARENTRY.add(new BarEntry(15f, 1));
-        BARENTRY.add(new BarEntry(6f, 2));
-        BARENTRY.add(new BarEntry(8f, 3));
-        BARENTRY.add(new BarEntry(8f, 4));
-
-
+    public ArrayList<Double> queryYData(){
+        ExpenseDaoImpl db = new ExpenseDaoImpl(getActivity());
+        Bundle b = getArguments();
+        String id = b.getString("ID");
+        return db.Amounts(Integer.parseInt(id));
+    }
+    public void createbarChart(){
+        ArrayList<BarEntry> yVals = new ArrayList<BarEntry>();
+        for (int i = 0; i < queryYData().size(); i++)
+            yVals.add(new BarEntry((int) Math.round(queryYData().get(i)), i));
+        List<String> xVals = new ArrayList<String>();
+        xVals.add("Gorcery");
+        xVals.add("Others");
+        xVals.add("Rent");
+        xVals.add("Shopping");
+        xVals.add("Travel");
+        BarDataSet dataSet = new BarDataSet(yVals, "Expenses");
+        dataSet.setColors(ColorTemplate.JOYFUL_COLORS);
+        BARDATA = new BarData(xVals,dataSet);
+        barChart.setEnabled(true);
+        barChart.setDragEnabled(true);
+        barChart.setScaleEnabled(true);
+        barChart.setDrawGridBackground(false);
+        barChart.animateXY(2000, 2000);
+        barChart.setData(BARDATA);
+        barChart.animateY(3000);
     }
 
-    public void AddValuesToBarEntryLabels(){
-
-        BarEntryLabels.add("Rent");
-        BarEntryLabels.add("Gorcery");
-        BarEntryLabels.add("Shopping");
-        BarEntryLabels.add("Travel");
-        BarEntryLabels.add("Others");
 
 
-    }
+    
 
 }
