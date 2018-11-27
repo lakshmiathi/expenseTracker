@@ -3,6 +3,7 @@ package application.android.com.expencestracker.Model;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Locale;
 
 
 /**
@@ -13,7 +14,7 @@ import java.util.Date;
 
 public class DateUtil {
    // static SimpleDateFormat formatter = new SimpleDateFormat("yyyy/MM/dd");
-   static SimpleDateFormat formatter = new SimpleDateFormat("MM/dd/YYYY");
+   static SimpleDateFormat formatter = new SimpleDateFormat("MM/dd/yyyy", Locale.US);
 
     /**
      * Verify the certain format of the String. If the format is "yyyy/MM/dd",
