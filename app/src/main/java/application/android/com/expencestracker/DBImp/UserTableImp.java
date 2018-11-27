@@ -4,9 +4,17 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-
 import application.android.com.expencestracker.Model.User;
 
+/**
+ * This class is used to maintain the "user_record" table in database, it provides
+ * some functions to manipulate the user table, e.g. add a new user, update an
+ * user's information, etc.
+ *
+ * @author
+ * @version
+ *
+ */
 public class UserTableImp {
     private DBHelper sqLiteUtil;
     private SQLiteDatabase db;
@@ -15,7 +23,6 @@ public class UserTableImp {
         sqLiteUtil = new DBHelper(context, 3);
         db = sqLiteUtil.getWritableDatabase();
     }
-
 
     public void add(User user) {
         //sqLiteUtil.onUpgrade(db,2,2);
@@ -31,13 +38,11 @@ public class UserTableImp {
         db.close();
     }
 
-
     public void delete(String email) {
         db = sqLiteUtil.getWritableDatabase();
         db.delete(DBdesign.USER_TABLE_NAME, DBdesign.USER_TABLE_INFO_COLUM_EMAIL+" = ?", new String[]{String.valueOf(email)});
         db.close();
     }
-
 
     public void update(String email, String password) {
         db = sqLiteUtil.getWritableDatabase();
@@ -55,7 +60,6 @@ public class UserTableImp {
         db.update(DBdesign.USER_TABLE_NAME,contentValues,DBdesign.USER_TABLE_INFO_COLUM_EMAIL+"="+email,null);
         db.close();
     }
-
 
     public User getUser(String pemail) {
         db = sqLiteUtil.getWritableDatabase();
@@ -76,7 +80,6 @@ public class UserTableImp {
         db.close();
         return userObj;
     }
-
 
     public void closeDBConnection(){
         db.close();

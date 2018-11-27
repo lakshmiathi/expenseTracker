@@ -1,5 +1,13 @@
 package application.android.com.expencestracker.Model;
 
+/**
+ * The User class represents a user item with several properties, such as
+ * user id, user name, user password, user email, etc.
+ *
+ * @author
+ * @version 1.0
+ *
+ */
 public class User {
 
     private int userId;
