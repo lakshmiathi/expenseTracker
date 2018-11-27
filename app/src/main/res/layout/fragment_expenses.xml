@@ -68,7 +68,6 @@
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
         android:layout_marginTop="24dp"
-        android:onClick="ShowPopup"
         android:src="@android:drawable/ic_input_add"
         app:backgroundTint="@color/colorAccentDark"
         app:fabSize="normal"
