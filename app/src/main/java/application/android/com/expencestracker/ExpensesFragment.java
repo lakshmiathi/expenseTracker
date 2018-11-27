@@ -73,7 +73,6 @@ public class ExpensesFragment extends Fragment {
         this._context = this.getContext();
         this.session = new UserSessionManager(this._context);
         HashMap<String, String> usr = this.session.getUserDetails();
-        Log.d("Check ", "check " + usr.get(KEY_USERID));
         user_id = usr.get(KEY_USERID);
 
         /* Retrieve the expense list from the database  */
@@ -110,12 +109,90 @@ public class ExpensesFragment extends Fragment {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
 
-                        Toast.makeText(getContext(), "Position" + position, Toast.LENGTH_LONG).show();
-
                         //  to call the add dialog box with the data populated
+
+                        Cursor cursor = (Cursor) parent.getItemAtPosition(position);
+                        cursor.moveToPosition(position);
+                        TextView txt_Close;
+                        Button button_Save;
+                        Expdialog.setContentView(R.layout.dialogexpense);
+
+                        final int item_id = cursor.getInt(cursor.getColumnIndex(DBdesign.EXPENSE_TABLE_INFO_COLUM_ID));
+                        final String expense_category = cursor.getString(cursor.getColumnIndexOrThrow(DBdesign.EXPENSE_TABLE_INFO_COLUM_CATEGORY));
+                        final Double amount = cursor.getDouble(cursor.getColumnIndexOrThrow(DBdesign.EXPENSE_TABLE_INFO_COLUM_AMOUNT));
+                        final String expense_date = cursor.getString(cursor.getColumnIndexOrThrow(DBdesign.EXPENSE_TABLE_INFO_COLUM_DATE));
+
+                        spinner = (Spinner) Expdialog.findViewById(R.id.spinner_Category);
+                        ArrayAdapter<String> adapter = new ArrayAdapter<String>(getContext(), android.R.layout.simple_list_item_1, getResources().getStringArray(R.array.Categories));
+
+                        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+                        spinner.setAdapter(adapter);
+                        int item_position = adapter.getPosition(expense_category);
+
+                        spinner.setSelection(item_position);
+
+                        TextView text_Date = (TextView)Expdialog.findViewById(R.id.text_Date);
+                        text_Date.setText(expense_date);
+
+                        final EditText expenseamount = (EditText) Expdialog.findViewById(R.id.editText_Amount);
+                        expenseamount.setText(amount.toString());
+
+                        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                            @Override
+                            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+
+                                String new_expense_category = spinner.getSelectedItem().toString();
+                            }
+
+                            @Override
+                            public void onNothingSelected(AdapterView<?> parent) {
+
+                            }
+                        });
+
+                        displayDate=(TextView)Expdialog.findViewById(R.id.text_Date);
+                        displayDate.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                showDatePickerDialog();
+                            }
+                        });
+
+                        button_Save=(Button) Expdialog.findViewById(R.id.button_Add);
+                        button_Save.setText("Save");
+                        button_Save.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+
+                                EditText new_expense_amount = (EditText) Expdialog.findViewById(R.id.editText_Amount);
+                                String updated_expense_amount= new_expense_amount.getText().toString();
+                                ExpenseDaoImpl expenseDao = new ExpenseDaoImpl(getContext());
+                                expenseDao.updateExpense(item_id,Double.parseDouble(updated_expense_amount),spinner.getSelectedItem().toString(),DateUtil.createDate(displayDate.getText().toString()));
+                                Toast.makeText(getActivity(),"Expense updated", Toast.LENGTH_SHORT).show();
+                                Cursor expesnecursor = expenseDao.getExpenseList(Integer.parseInt(user_id));
+                                adapterexpense.changeCursor(expesnecursor);
+                                list_expenses.setAdapter(adapterexpense);
+                                Double totalexpenses = expenseDao.sumAmountByUser(Integer.parseInt(user_id));
+                                total_expenses.setText(totalexpenses.toString());
+                                Expdialog.cancel();
+                            }
+                        });
+
+                        txt_Close = (TextView) Expdialog.findViewById(R.id.txt_Close);
+                        txt_Close.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                Expdialog.dismiss();
+                            }
+                        });
+
+                        Expdialog.show();
 
                     }
                 });
+
+
 
                 //  Delete the selected expense
                 alert_menu.setNegativeButton("DELETE", new DialogInterface.OnClickListener() {
@@ -158,18 +235,6 @@ public class ExpensesFragment extends Fragment {
                     }
                 });
                 alert_menu.show();
-            }
-        });
-
-
-        list_expenses.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
-            @Override
-            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-
-                Toast.makeText(getContext(), "Update Item_id", Toast.LENGTH_LONG).show();
-
-                return false;
-
             }
         });
 
