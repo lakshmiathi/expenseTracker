@@ -53,16 +53,19 @@ public class BarFragment extends Fragment {
         String id = b.getString("ID");
         return db.Amounts(Integer.parseInt(id));
     }
+    public  ArrayList<String> queryXData(){
+        ExpenseDaoImpl db = new ExpenseDaoImpl(getActivity());
+        Bundle b = getArguments();
+        String id =b.getString("ID");
+        return  db.Categories(Integer.parseInt(id));
+    }
     public void createbarChart(){
         ArrayList<BarEntry> yVals = new ArrayList<BarEntry>();
         for (int i = 0; i < queryYData().size(); i++)
             yVals.add(new BarEntry((int) Math.round(queryYData().get(i)), i));
         List<String> xVals = new ArrayList<String>();
-        xVals.add("Gorcery");
-        xVals.add("Others");
-        xVals.add("Rent");
-        xVals.add("Shopping");
-        xVals.add("Travel");
+        for (int i = 0; i < queryYData().size(); i++)
+            xVals.add(queryXData().get(i).toString());
         BarDataSet dataSet = new BarDataSet(yVals, "Expenses");
         dataSet.setColors(ColorTemplate.JOYFUL_COLORS);
         BARDATA = new BarData(xVals,dataSet);
