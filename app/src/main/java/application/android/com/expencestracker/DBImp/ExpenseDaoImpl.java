@@ -187,6 +187,15 @@ public class ExpenseDaoImpl{
         //   db.close();
         return dou;
     }
+
+    /**
+     * The Categories method will get the distinct categories of expenses for a specified user.
+     *
+     *
+     * @param userid the user id which user wants to get.
+     * @return return an arraylist of categories
+     *
+     */
     public ArrayList<String> Categories (int userid ){
         db = sqLiteUtil.getWritableDatabase();
         String querySql="select " + DBdesign.EXPENSE_TABLE_INFO_COLUM_CATEGORY + " from " + DBdesign.EXPENSE_TABLE_NAME + " where " + DBdesign.EXPENSE_TABLE_INFO_COLUM_USER + "=" + userid + " group by " +DBdesign.EXPENSE_TABLE_INFO_COLUM_CATEGORY;
@@ -199,6 +208,14 @@ public class ExpenseDaoImpl{
         return xNewData;
     }
 
+    /**
+     * The Amounts method will get the total amounts of each distinct category.
+     *
+     *
+     * @param userid the user id which user wants to get.
+     * @return return an arraylist of total amount for each category
+     *
+     */
     public ArrayList<Double> Amounts (int userid ) {
         db = sqLiteUtil.getWritableDatabase();
         String querySql="SELECT sum(" + DBdesign.EXPENSE_TABLE_INFO_COLUM_AMOUNT + ") AS Total FROM " + DBdesign.EXPENSE_TABLE_NAME + " WHERE " + DBdesign.EXPENSE_TABLE_INFO_COLUM_USER + "=" + userid + " GROUP BY " +DBdesign.EXPENSE_TABLE_INFO_COLUM_CATEGORY;
