@@ -44,7 +44,6 @@ android:background="@drawable/background">
     android:layout_marginTop="82dp"
     android:hint="Select Date"
     android:inputType="date"
-    android:onClick="initaltest"
     android:textColor="@color/nav_colors"
     android:textSize="18sp" />
 
@@ -56,7 +55,6 @@ android:background="@drawable/background">
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="76dp"
         android:hint="Amount"
-
         android:inputType="text|numberDecimal"
         android:textColor="@color/nav_colors" />
 

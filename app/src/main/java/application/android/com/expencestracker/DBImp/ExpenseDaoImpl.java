@@ -187,8 +187,36 @@ public class ExpenseDaoImpl{
         //   db.close();
         return dou;
     }
+    public ArrayList<String> Categories (int userid ){
+        db = sqLiteUtil.getWritableDatabase();
+        String querySql="select " + DBdesign.EXPENSE_TABLE_INFO_COLUM_CATEGORY + " from " + DBdesign.EXPENSE_TABLE_NAME + " where " + DBdesign.EXPENSE_TABLE_INFO_COLUM_USER + "=" + userid + " group by " +DBdesign.EXPENSE_TABLE_INFO_COLUM_CATEGORY;
+        Cursor cursor = db.rawQuery(querySql, null);
+        ArrayList<String> xNewData = new ArrayList<String>();
+        for (cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext()) {
+            xNewData.add(cursor.getString(0));
+        }
+        cursor.close();
+        return xNewData;
+    }
+
+    public ArrayList<Double> Amounts (int userid ) {
+        db = sqLiteUtil.getWritableDatabase();
+        String querySql="SELECT sum(" + DBdesign.EXPENSE_TABLE_INFO_COLUM_AMOUNT + ") AS Total FROM " + DBdesign.EXPENSE_TABLE_NAME + " WHERE " + DBdesign.EXPENSE_TABLE_INFO_COLUM_USER + "=" + userid + " GROUP BY " +DBdesign.EXPENSE_TABLE_INFO_COLUM_CATEGORY;
+        Cursor cursor = db.rawQuery(querySql, null);
+        ArrayList<Double> yNewData = new ArrayList<Double>();
+        for(cursor.moveToFirst();!cursor.isAfterLast();cursor.moveToNext()){
+            yNewData.add(cursor.getDouble(cursor.getColumnIndexOrThrow("Total")));
+
+            // yNewData.add(cursor.getColumnIndexOrThrow("Total"));
+        }
+        cursor.close();
+        return yNewData;
+    }
+
 
     public void closeDBConnection(){
         db.close();
     }
 }
+
+
