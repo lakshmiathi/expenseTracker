@@ -17,6 +17,9 @@ import com.github.mikephil.charting.formatter.PercentFormatter;
 import com.github.mikephil.charting.utils.ColorTemplate;
 
 import java.util.ArrayList;
+import java.util.List;
+
+import application.android.com.expencestracker.DBImp.ExpenseDaoImpl;
 
 
 /**
@@ -38,47 +41,47 @@ public class StatisticsFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_statistics, container, false);
-        pieChart = view.findViewById(R.id.piechart);
+        pieChart = (PieChart) view.findViewById(R.id.piechart) ;
+        chart();
+        return  view;
+    }
+
+    public ArrayList<Double> queryYData(){
+        ExpenseDaoImpl db = new ExpenseDaoImpl(getActivity());
+        Bundle b = getArguments();
+        String id = b.getString("ID");
+        return db.Amounts(Integer.parseInt(id));
+    }
+    public  ArrayList<String> queryXData(){
+        ExpenseDaoImpl db = new ExpenseDaoImpl(getActivity());
+        Bundle b = getArguments();
+        String id =b.getString("ID");
+        return  db.Categories(Integer.parseInt(id));
+    }
+
+    public void chart(){
+        ArrayList<Entry> yVals = new ArrayList<Entry>();
+        for (int i = 0; i < queryYData().size(); i++)
+            yVals.add(new Entry((int) Math.round(queryYData().get(i)), i));
+        List<String> xVals = new ArrayList<String>();
+        for (int i = 0; i < queryXData().size(); i++)
+            xVals.add(queryXData().get(i).toString());
+
+        PieDataSet dataSet = new PieDataSet(yVals, "Total");
+        dataSet.setColors(ColorTemplate.JOYFUL_COLORS);
+        PieData data = new PieData(xVals, dataSet);
+        data.setValueFormatter(new PercentFormatter());
+        data.setValueTextSize(15f);
+        data.setValueTextColor(Color.WHITE);
+        pieChart.setData(data);
         pieChart.setUsePercentValues(true);
-        pieChart.setExtraOffsets(5,10,5,5);
         pieChart.setDragDecelerationFrictionCoef(0.95f);
         pieChart.setDrawHoleEnabled(true);
         pieChart.setHoleColor(Color.WHITE);
         pieChart.setTransparentCircleRadius(61f);
         pieChart.animateY(3000, Easing.EasingOption.EaseInOutSine);
-
-
-
-        ArrayList<Entry> yvalues = new ArrayList<Entry>();
-        yvalues.add(new Entry(8f, 0));
-        yvalues.add(new Entry(15f, 1));
-        yvalues.add(new Entry(12f, 2));
-        yvalues.add(new Entry(25f, 3));
-        yvalues.add(new Entry(23f, 4));
-
-
-        PieDataSet dataSet = new PieDataSet(yvalues, "Expenses By Categories");
-        dataSet.setColors(ColorTemplate.JOYFUL_COLORS);
-
-        ArrayList<String> xVals = new ArrayList<String>();
-
-        xVals.add("Rent");
-        xVals.add("Shopping");
-        xVals.add("Gorcery");
-        xVals.add("Travel");
-        xVals.add("Others");
-
-        PieData data = new PieData(xVals, dataSet);
-
-        data.setValueFormatter(new PercentFormatter());
-        data.setValueTextSize(15f);
-        data.setValueTextColor(Color.WHITE);
-
-
-        pieChart.setData(data);
-
-
-        return  view;
+        pieChart.highlightValues(null);
+        pieChart.invalidate();
     }
 
 
