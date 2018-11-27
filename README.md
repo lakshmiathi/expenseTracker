@@ -21,5 +21,13 @@ A splash screen is a graphical control element consisting of a window containing
 
 We implemented our application logo and slogan to be appeared while launching the software, it's an animated presentation which are typically used by particularly large applications to notify the user that the program is in the process of loading.
 
+# Statistics 
+
+1. BarChart
+
+A bar chart is a graph with rectangular bars. The graph usually compares different categories. This graph is plotted vertically (bars standing up)
+
+The horizontal (x) axis represents the categories; The vertical (y) axis represents a value for those categories. In the graph below, the values are amount (Integers)
 
 
+![](https://user-images.githubusercontent.com/25740696/49077987-14c23980-f23d-11e8-9468-080b125517fc.png)
