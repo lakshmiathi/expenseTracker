@@ -21,13 +21,5 @@ A splash screen is a graphical control element consisting of a window containing
 
 We implemented our application logo and slogan to be appeared while launching the software, it's an animated presentation which are typically used by particularly large applications to notify the user that the program is in the process of loading.
 
-# Statistics 
-1. **PieChart**
-
-![](https://user-images.githubusercontent.com/25740696/48944743-4dee6700-ef28-11e8-9449-53ed2dd6e697.png)
-
-2. **BarChart**
-
-![](https://user-images.githubusercontent.com/25740696/48945037-3a8fcb80-ef29-11e8-868b-6220648771d5.png)
 
 
