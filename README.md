@@ -23,7 +23,7 @@ We implemented our application logo and slogan to be appeared while launching th
 
 # Statistics 
 
-1. BarChart
+1. **BarChart**
 
 A bar chart is a graph with rectangular bars. The graph usually compares different categories. This graph is plotted vertically (bars standing up)
 
@@ -31,3 +31,13 @@ The horizontal (x) axis represents the categories; The vertical (y) axis represe
 
 
 ![](https://user-images.githubusercontent.com/25740696/49077987-14c23980-f23d-11e8-9468-080b125517fc.png)
+
+2. **PieChart**
+
+A pie graph (or pie chart) is a specialized graph used in statistics. The independent variable is plotted around a circle in either a clockwise direction or a counterclockwise direction.The dependent variable (usually a percentage) is rendered as an arc whose measure is proportional to the magnitude of the quantity.
+
+The illustration below is a **pie chart** depicting the results of our  **Expense Tracker** given to a hypothetical class of Categories.Each category is denoted by a "slice."The total of the percentages is equal to 100 (this is important; if it were not, the accuracy of the graph would be suspect).The total of the arc measures is equal to 360 degrees.
+
+![](https://user-images.githubusercontent.com/25740696/49144177-fe7bb280-f2fc-11e8-91c0-74845528c7a4.png)
+
+
