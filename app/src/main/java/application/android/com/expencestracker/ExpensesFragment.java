@@ -392,9 +392,6 @@ public class ExpensesFragment extends Fragment {
 
             }
         toast.setDuration(Toast.LENGTH_SHORT);
-    //    toasttext.setTextColor(getResources().getColor(R.color.colorPrimaryDark));
-
-        // toasttext.setTextColor(getResources().getColor(R.color.colorPrimaryDark));
         toast.setView(toastview);
         toast.show();
 
