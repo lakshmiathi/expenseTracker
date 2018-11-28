@@ -224,12 +224,21 @@ public class ExpenseDaoImpl{
         for(cursor.moveToFirst();!cursor.isAfterLast();cursor.moveToNext()){
             yNewData.add(cursor.getDouble(cursor.getColumnIndexOrThrow("Total")));
 
-            // yNewData.add(cursor.getColumnIndexOrThrow("Total"));
+      
         }
         cursor.close();
         return yNewData;
     }
 
+    public Cursor AmountsCategoryname (int userid ) {
+        db = sqLiteUtil.getWritableDatabase();
+        String querySql=" SELECT expenseid _id,sum(" + DBdesign.EXPENSE_TABLE_INFO_COLUM_AMOUNT + ") AS Total,"+ DBdesign.EXPENSE_TABLE_INFO_COLUM_CATEGORY  + " FROM " + DBdesign.EXPENSE_TABLE_NAME + " WHERE " + DBdesign.EXPENSE_TABLE_INFO_COLUM_USER + "=" + userid + " GROUP BY " +DBdesign.EXPENSE_TABLE_INFO_COLUM_CATEGORY;
+        Cursor cursor = db.rawQuery(querySql, null);
+
+       
+
+        return cursor;
+    }
 
     public void closeDBConnection(){
         db.close();

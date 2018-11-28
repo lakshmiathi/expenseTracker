@@ -32,7 +32,7 @@ public class CustomAdapterList extends CursorAdapter {
     @Override
     public void bindView(View view, Context context, Cursor cursor) {
 
-        TextView textView_expense = (TextView)view.findViewById(R.id.textview_expensecategory);
+        TextView textView_expense = (TextView)view.findViewById(R.id.textview_expense_category);
         TextView textView_amount = (TextView)view.findViewById(R.id.textview_amount );
         TextView textView_date = (TextView)view.findViewById(R.id.textview_date);
 

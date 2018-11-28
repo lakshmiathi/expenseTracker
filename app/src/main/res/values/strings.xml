@@ -101,6 +101,8 @@
     <string name="textview_amount">Amount</string>
     <string name="textview_date">Date</string>
     <string name="label_expensetotal">Total Expense</string>
+    <string name="categorytotal">Total</string>
+    <string name="Categoryname">Expense Category</string>
 
 
     <!-- TODO: Remove or change this placeholder text -->
