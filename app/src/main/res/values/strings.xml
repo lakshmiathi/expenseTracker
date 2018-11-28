@@ -126,5 +126,9 @@
         <item>Others</item>
     </string-array>
 
+    <!-- close Popup -->
+    <string name ="Close"><b>X</b></string>
+
+
 
 </resources>
