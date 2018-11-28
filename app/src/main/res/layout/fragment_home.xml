@@ -15,9 +15,9 @@
         android:id="@+id/home1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="16dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginStart="28dp"
+        android:layout_marginLeft="28dp"
+        android:layout_marginTop="4dp"
         android:paddingLeft="60dp"
         android:textAlignment="center"
         android:textAllCaps="true"
@@ -32,17 +32,13 @@
         android:id="@+id/textView_expenses"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:layout_marginLeft="36dp"
-        android:layout_marginRight="8dp"
         android:layout_marginStart="36dp"
-        android:layout_marginTop="92dp"
+        android:layout_marginLeft="36dp"
+        android:layout_marginTop="96dp"
         android:text="Total Expenses"
         android:textColor="@color/colorAccentDark"
         android:textSize="24sp"
         android:textStyle="bold"
-        app:layout_constraintEnd_toStartOf="@+id/textview_total"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -50,29 +46,95 @@
         android:id="@+id/textview_total"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="72dp"
-        android:layout_marginRight="72dp"
-        android:layout_marginTop="92dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="96dp"
+        android:layout_marginEnd="76dp"
+        android:layout_marginRight="76dp"
         android:text="0.0"
         android:textColor="@color/colorAccentDark"
         android:textSize="24sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/textView_expenses"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/buttton_limit"
+        style="@style/Widget.MaterialComponents.Button.Icon"
+        android:layout_width="wrap_content"
+        android:layout_height="41dp"
+
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginEnd="6dp"
+        android:layout_marginRight="6dp"
+        android:text="Set Expense Limit"
+        android:textColor="@color/colorPrimary"
+        android:textSize="14sp"
+        android:textStyle="bold|italic"
+        app:backgroundTint="@color/colorAccentDark"
+        app:layout_constraintEnd_toStartOf="@+id/home1"
+        app:layout_constraintHorizontal_bias="0.121"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/listview_category" />
+
+
+    <Button
+        android:id="@+id/button_ok"
+        style="@style/Widget.AppCompat.Button.Borderless.Colored"
+        android:layout_width="wrap_content"
+        android:layout_height="43dp"
+        android:layout_below="@+id/buttton_limit"
+        android:layout_marginTop="4dp"
+        android:layout_marginEnd="124dp"
+        android:layout_marginRight="124dp"
+        android:text="ok"
+        android:textColor="@android:color/holo_green_dark"
+        android:textStyle="bold|italic"
+        android:visibility="invisible"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/listview_category" />
+
+    <EditText
+        android:id="@+id/editText_limit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/home1"
+        android:layout_centerHorizontal="true"
+
+        android:layout_marginTop="4dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:hint="Set limit"
+        android:inputType="number"
+        android:selectAllOnFocus="true"
+        android:text="0"
+        android:visibility="invisible"
+        app:layout_constraintEnd_toStartOf="@+id/button_ok"
+        app:layout_constraintHorizontal_bias="0.121"
+        app:layout_constraintStart_toEndOf="@+id/buttton_limit"
+        app:layout_constraintTop_toBottomOf="@+id/listview_category" />
+
 
     <ListView
         android:id="@+id/listview_category"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="32dp"
+        android:layout_height="125dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
         android:layout_marginTop="8dp"
+        android:layout_marginEnd="32dp"
+        android:layout_marginRight="32dp"
+        android:layout_marginBottom="32dp"
         android:clickable="false"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="0.2"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.681" />
+        app:layout_constraintVertical_bias="0.428" />
 
 
 </android.support.constraint.ConstraintLayout>
+

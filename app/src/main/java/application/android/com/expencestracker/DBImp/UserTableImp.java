@@ -44,13 +44,13 @@ public class UserTableImp {
         db.close();
     }
 
-    public void update(String email, String password) {
+    /*public void update(String email, String password) {
         db = sqLiteUtil.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
         contentValues.put(DBdesign.USER_TABLE_INFO_COLUM_PASSWORD,password);
         db.update(DBdesign.USER_TABLE_NAME,contentValues,DBdesign.USER_TABLE_INFO_COLUM_EMAIL+"="+email,null);
         db.close();
-    }
+    }*/
 
     public void update(String user_name, String password, String email) {
         db = sqLiteUtil.getWritableDatabase();
@@ -81,9 +81,11 @@ public class UserTableImp {
         return userObj;
     }
 
+
+
     public int getAmount() {
         db = sqLiteUtil.getWritableDatabase();
-        String querySql="select count(*) as count from " + DBdesign.USER_TABLE_NAME;
+        String querySql = "select count(*) as count from " + DBdesign.USER_TABLE_NAME;
         Cursor cursor = db.rawQuery(querySql, null);
         int count = 0;
         while (cursor.moveToNext()) {
@@ -91,6 +93,34 @@ public class UserTableImp {
         }
         db.close();
         return count;
+    }
+
+
+    public void update(int id, String limit) {
+        db = sqLiteUtil.getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(DBdesign.USER_TABLE_INFO_LIMIT,limit);
+
+        db.update(DBdesign.USER_TABLE_NAME,contentValues,DBdesign.USER_TABLE_INFO_COLUM_ID+"="+id,null);
+        db.close();
+
+    }
+
+    public String getLimit(int user_id) {
+        db = sqLiteUtil.getWritableDatabase();
+        String query="select userid _id ,"+ DBdesign.USER_TABLE_INFO_LIMIT+" from "+DBdesign.USER_TABLE_NAME + " where " +DBdesign.USER_TABLE_INFO_COLUM_ID +" = " +user_id;
+        Cursor cursor = db.rawQuery(query, null);
+        //double dou = 0;
+        String str=null;
+
+        //  cursor.moveToFirst();
+        while (cursor.moveToNext()) {
+            str = cursor.getString(cursor.getColumnIndexOrThrow("limit1"));
+        }
+        cursor.close();
+        //   db.close();
+        return str;
+
     }
 
     public void closeDBConnection(){

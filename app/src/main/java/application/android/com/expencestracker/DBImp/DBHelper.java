@@ -26,7 +26,8 @@ public class DBHelper extends SQLiteOpenHelper {
         createUserTable.append(DBdesign.USER_TABLE_INFO_COLUM_USERNAME + " varchar(20),");
         createUserTable.append(DBdesign.USER_TABLE_INFO_COLUM_PASSWORD + " varchar(20),");
         createUserTable.append(DBdesign.USER_TABLE_INFO_COLUM_EMAIL + " varchar(20),");
-        createUserTable.append(DBdesign.USER_TABLE_INFO_COLUM_STATUS + " integer)");
+        createUserTable.append(DBdesign.USER_TABLE_INFO_COLUM_STATUS + " integer),");
+        createUserTable.append(DBdesign.USER_TABLE_INFO_LIMIT + " integer) " );
         db.execSQL(createUserTable.toString());
 
         StringBuffer createExpenseTable = new StringBuffer();

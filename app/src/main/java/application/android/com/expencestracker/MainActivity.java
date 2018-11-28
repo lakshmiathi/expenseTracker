@@ -1,6 +1,5 @@
 package application.android.com.expencestracker;
 
-import android.app.Activity;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
@@ -9,10 +8,7 @@ import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.support.design.widget.BottomNavigationView;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.app.NotificationCompat;
@@ -21,15 +17,17 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.TextView;
 
 import java.util.HashMap;
 
-import application.android.com.expencestracker.Model.UserSessionManager;;
+import application.android.com.expencestracker.DBImp.ExpenseDaoImpl;
+import application.android.com.expencestracker.DBImp.UserTableImp;
+import application.android.com.expencestracker.Model.UserSessionManager;
+
+;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -56,7 +54,10 @@ public class MainActivity extends AppCompatActivity {
     private UserSessionManager session;
     String user_id;
     String user_name;
-    int value=10;
+    double value;
+    String limit;
+    HomeFragment setHomeFragment;
+    UserTableImp userTableImp;
 
 
     @Override
@@ -89,7 +90,17 @@ public class MainActivity extends AppCompatActivity {
        setFragment(homeFragment);
         Bundle bundle=new Bundle();
         bundle.putString(username,user_name);
-        if(value==10){
+        setHomeFragment=new HomeFragment();
+        //String limit=setHomeFragment.setLimit(user_id)  ;
+        userTableImp = new UserTableImp(this);
+        String limit = userTableImp.getLimit(Integer.parseInt(user_id));
+        value=Integer.parseInt(limit);
+
+        ExpenseDaoImpl expenseDao = new ExpenseDaoImpl(this);
+         Double totalexpense=expenseDao.sumAmountByUser(Integer.parseInt(user_id));
+         
+
+        if(value>totalexpense){
             createNotificationChannel();
             creatNotification();
         }
@@ -172,6 +183,12 @@ public class MainActivity extends AppCompatActivity {
         bundle.putString(username,user_name);
         fragment.setArguments(bundle);
     }
+
+    public String setLimit(String s)  {
+            limit = s;
+            return limit;
+    }
+
 
 
     @Override
