@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 import android.content.Context;
 
 import android.widget.CursorAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 
@@ -40,6 +41,25 @@ public class CustomAdapterList extends CursorAdapter {
         String expense_amount = cursor.getString(cursor.getColumnIndexOrThrow(DBdesign.EXPENSE_TABLE_INFO_COLUM_AMOUNT));
         String expense_id = cursor.getString(cursor.getColumnIndexOrThrow(DBdesign.EXPENSE_TABLE_INFO_COLUM_ID));
 
+        ImageView img = (ImageView) view.findViewById(R.id.imview_category);
+
+        switch (expense_category) {
+            case "Grocery":
+                img.setImageResource(R.drawable.grocery);
+                break;
+            case "Rent":
+                img.setImageResource(R.drawable.rent);
+                break;
+            case "Shopping":
+                img.setImageResource(R.drawable.shopping);
+                break;
+            case "Travel":
+                img.setImageResource(R.drawable.travel);
+                break;
+            case "Others":
+                img.setImageResource(R.drawable.others);
+                break;
+        }
 
         textView_expense.setText(expense_category);
         textView_amount.setText(expense_amount);
