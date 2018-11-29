@@ -10,8 +10,10 @@ import android.database.Cursor;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.TextInputEditText;
 import android.support.v4.app.Fragment;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -50,11 +52,16 @@ public class ExpensesFragment extends Fragment {
     private Context _context;
     private UserSessionManager session;
     private static final String KEY_USERID = "USER_ID";
+    private TextInputEditText text_Date;
+    private TextInputEditText text_Amount;
+    private Button button_AddExpense;
+    private TextView txt_Close;
     String user_id;
     Spinner spinner;
     Date expense_date_record;
     TextView displayDate;
     Calendar calendar;
+    private String method_type;
 
     public ExpensesFragment() {
         // Required empty public constructor
@@ -132,10 +139,10 @@ public class ExpensesFragment extends Fragment {
 
                         spinner.setSelection(item_position);
 
-                        TextView text_Date = (TextView)Expdialog.findViewById(R.id.text_Date);
+                        text_Date = (TextInputEditText) Expdialog.findViewById(R.id.text_Date);
                         text_Date.setText(expense_date);
 
-                        final EditText expenseamount = (EditText) Expdialog.findViewById(R.id.editText_Amount);
+                        final TextInputEditText expenseamount = (TextInputEditText) Expdialog.findViewById(R.id.text_Amount);
                         expenseamount.setText(amount.toString());
 
                         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -159,23 +166,36 @@ public class ExpensesFragment extends Fragment {
                             }
                         });
 
-                        button_Save=(Button) Expdialog.findViewById(R.id.button_Add);
+                        button_Save=(Button) Expdialog.findViewById(R.id.button_AddExpense);
                         button_Save.setText("Save");
                         button_Save.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
 
-                                EditText new_expense_amount = (EditText) Expdialog.findViewById(R.id.editText_Amount);
+                                method_type="EDIT";
+
+                                TextInputEditText new_expense_amount = (TextInputEditText) Expdialog.findViewById(R.id.text_Amount);
                                 String updated_expense_amount= new_expense_amount.getText().toString();
+                                String updated_date = displayDate.getText().toString();
                                 ExpenseDaoImpl expenseDao = new ExpenseDaoImpl(getContext());
-                                expenseDao.updateExpense(item_id,Double.parseDouble(updated_expense_amount),spinner.getSelectedItem().toString(),DateUtil.createDate(displayDate.getText().toString()));
-                                Toast.makeText(getActivity(),"Expense updated", Toast.LENGTH_SHORT).show();
-                                Cursor expesnecursor = expenseDao.getExpenseList(Integer.parseInt(user_id));
-                                adapterexpense.changeCursor(expesnecursor);
-                                list_expenses.setAdapter(adapterexpense);
-                                Double totalexpenses = expenseDao.sumAmountByUser(Integer.parseInt(user_id));
-                                total_expenses.setText(totalexpenses.toString());
-                                Expdialog.cancel();
+
+                                if (updated_expense_amount.length() == 0 || Double.parseDouble(updated_expense_amount) < 0) {
+                                    new_expense_amount.setError("Amount can't be empty");
+                                } else if (updated_date == null || updated_date == "") {
+                                    text_Date.setError("Enter correct date");
+                                } else {
+
+                                    expenseDao.updateExpense(item_id, Double.parseDouble(updated_expense_amount), spinner.getSelectedItem().toString(), DateUtil.createDate(updated_date));
+
+                                   // Toast.makeText(getActivity(), "Expense updated", Toast.LENGTH_SHORT).show();
+                                    Cursor expesnecursor = expenseDao.getExpenseList(Integer.parseInt(user_id));
+                                    adapterexpense.changeCursor(expesnecursor);
+                                    list_expenses.setAdapter(adapterexpense);
+                                    Double totalexpenses = expenseDao.sumAmountByUser(Integer.parseInt(user_id));
+                                    total_expenses.setText(totalexpenses.toString());
+                                    Expdialog.cancel();
+                                    showToastSuccess("Expense updated",method_type);
+                                }
                             }
                         });
 
@@ -250,9 +270,9 @@ public class ExpensesFragment extends Fragment {
         floatingActionButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                TextView txt_Close;
+                /*TextView txt_Close;
                 EditText expense_amount;
-                Button button_Add;
+                Button button_Add;*/
                 Expdialog.setContentView(R.layout.dialogexpense);
                 txt_Close = (TextView) Expdialog.findViewById(R.id.txt_Close);
                 spinner = (Spinner) Expdialog.findViewById(R.id.spinner_Category);
@@ -266,19 +286,19 @@ public class ExpensesFragment extends Fragment {
                     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
 
                         if (parent.getItemAtPosition(position).equals("Select Category")) {
-                            TextView text_Date = (TextView) Expdialog.findViewById(R.id.text_Date);
+                            text_Date = (TextInputEditText) Expdialog.findViewById(R.id.text_Date);
                             text_Date.setVisibility(View.INVISIBLE);
-                            EditText expense_amount = (EditText) Expdialog.findViewById(R.id.editText_Amount);
-                            expense_amount.setVisibility(View.INVISIBLE);
-                            Button button_Add = (Button) Expdialog.findViewById(R.id.button_Add);
-                            button_Add.setVisibility(View.INVISIBLE);
+                            text_Amount = (TextInputEditText) Expdialog.findViewById(R.id.text_Amount);
+                            text_Amount.setVisibility(View.INVISIBLE);
+                           button_AddExpense = (Button) Expdialog.findViewById(R.id.button_AddExpense);
+                            button_AddExpense.setVisibility(View.INVISIBLE);
                         } else {
-                            TextView text_Date = (TextView) Expdialog.findViewById(R.id.text_Date);
+                           text_Date = (TextInputEditText) Expdialog.findViewById(R.id.text_Date);
                             text_Date.setVisibility(View.VISIBLE);
-                            EditText expense_amount = (EditText) Expdialog.findViewById(R.id.editText_Amount);
-                            expense_amount.setVisibility(View.VISIBLE);
-                            Button button_Add = (Button) Expdialog.findViewById(R.id.button_Add);
-                            button_Add.setVisibility(View.VISIBLE);
+                            text_Amount = (TextInputEditText) Expdialog.findViewById(R.id.text_Amount);
+                            text_Amount.setVisibility(View.VISIBLE);
+                           button_AddExpense = (Button) Expdialog.findViewById(R.id.button_AddExpense);
+                            button_AddExpense.setVisibility(View.VISIBLE);
                         }
                         expense_category = spinner.getSelectedItem().toString();
                     }
@@ -299,8 +319,8 @@ public class ExpensesFragment extends Fragment {
                 });
 
                 //Add button on click saves data into database.
-                button_Add = (Button) Expdialog.findViewById(R.id.button_Add);
-                button_Add.setOnClickListener(new View.OnClickListener() {
+                button_AddExpense = (Button) Expdialog.findViewById(R.id.button_AddExpense);
+                button_AddExpense.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         addExpense();
@@ -356,23 +376,46 @@ public class ExpensesFragment extends Fragment {
 
     }
 
+    private void showToastSuccess(String message,String type){
+
+        LayoutInflater inflater = getLayoutInflater();
+        View toastview = inflater.inflate(R.layout.toastcustomization, (ViewGroup)getView().findViewById(R.id.toast_custom));
+        TextView toasttext = toastview.findViewById(R.id.Text_toast);
+        toasttext.setText(message);
+        Toast toast = new Toast(getActivity());
+        if(type.equals("Add")) {
+            toast.setGravity(Gravity.CENTER_VERTICAL, 70, 70);
+        }
+        else
+            {
+                toast.setGravity(Gravity.CENTER_HORIZONTAL, 0 ,0);
+
+            }
+        toast.setDuration(Toast.LENGTH_SHORT);
+        toast.setView(toastview);
+        toast.show();
+
+    }
+
+
     private void addExpense() {
-        EditText expense_amount = (EditText) Expdialog.findViewById(R.id.editText_Amount);
-        TextView expense_dt = (TextView) Expdialog.findViewById(R.id.text_Date);
-        String exp = expense_amount.getText().toString();
+       text_Amount = (TextInputEditText) Expdialog.findViewById(R.id.text_Amount);
+        method_type = "Add";
+       text_Date = (TextInputEditText) Expdialog.findViewById(R.id.text_Date);
+        String exp = text_Amount.getText().toString();
         Log.d("Record check", "records are " + exp + expense_category + expense_date_record + user_id);
 
         if (exp.length() == 0 || Double.parseDouble(exp) < 0) {
-            Toast.makeText(getActivity(), "Enter correct amount!", Toast.LENGTH_SHORT).show();
+            text_Amount.setError("Amount can't be empty");
         } else if (expense_date == null || expense_date == "") {
-            Toast.makeText(getActivity(), "Enter correct date!", Toast.LENGTH_SHORT).show();
+            text_Date.setError("Enter correct date");
         } else {
             Expense expenserecord = new Expense(Double.parseDouble(exp), expense_category, DateUtil.createDate(expense_date), Integer.parseInt(user_id));
             expensedata.add(expenserecord);
             spinner.setSelection(0);
-            Toast.makeText(getActivity(), "Expense added", Toast.LENGTH_SHORT).show();
-            expense_amount.getText().clear();
-            expense_dt.setText("");
+            showToastSuccess("Expense added",method_type);
+            text_Amount.getText().clear();
+            text_Date.setText("");
             expense_date = "";
         }
     }
