@@ -19,7 +19,7 @@ public class ExpenseTest {
     }
 
     @Test
-    public void TaskUnitTest()
+    public void ExpenseTest()
             throws NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException {
         Expense exp = new Expense();
         Class<?> cl = exp.getClass();
