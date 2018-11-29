@@ -59,6 +59,25 @@ public class MainActivity extends AppCompatActivity {
     HomeFragment setHomeFragment;
     UserTableImp userTableImp;
 
+    private void notifyOnLimit(String user_id) {
+        if(user_id != null) {
+            userTableImp = new UserTableImp(this);
+            String limit = userTableImp.getLimit(Integer.parseInt(user_id));
+            if(limit != null) {
+                value = Integer.parseInt(limit);
+
+                ExpenseDaoImpl expenseDao = new ExpenseDaoImpl(this);
+                Double totalexpense = expenseDao.sumAmountByUser(Integer.parseInt(user_id));
+
+
+                if (value < totalexpense) {
+                    createNotificationChannel();
+                    creatNotification();
+                }
+            }
+        }
+    }
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -92,18 +111,8 @@ public class MainActivity extends AppCompatActivity {
         bundle.putString(username,user_name);
         setHomeFragment=new HomeFragment();
         //String limit=setHomeFragment.setLimit(user_id)  ;
-        userTableImp = new UserTableImp(this);
-        String limit = userTableImp.getLimit(Integer.parseInt(user_id));
-        value=Integer.parseInt(limit);
+        notifyOnLimit(user_id);
 
-        ExpenseDaoImpl expenseDao = new ExpenseDaoImpl(this);
-         Double totalexpense=expenseDao.sumAmountByUser(Integer.parseInt(user_id));
-         
-
-        if(value>totalexpense){
-            createNotificationChannel();
-            creatNotification();
-        }
 
         homeFragment.setArguments(bundle);
 
