@@ -13,7 +13,7 @@ import java.util.Locale;
  */
 
 public class DateUtil {
-   // static SimpleDateFormat formatter = new SimpleDateFormat("yyyy/MM/dd");
+   // static SimpleDateFormat formatter = new SimpleDateFormat("MM/dd/yyyy");
    static SimpleDateFormat formatter = new SimpleDateFormat("MM/dd/yyyy", Locale.US);
 
     /**
@@ -40,10 +40,10 @@ public class DateUtil {
 
 
     /**
-     * Convert an object of Date to a string with format of "MM/dd/YYYY".
+     * Convert an object of Date to a string with format of "MM/dd/yyyy".
      *
      * @param date an object of Date to be transformed
-     * @return a string with format of "yyyy/MM/dd"
+     * @return a string with format of "MM/dd/yyyy"
      */
     public static String dateToString(Date date) {
         formatter.setLenient(false);

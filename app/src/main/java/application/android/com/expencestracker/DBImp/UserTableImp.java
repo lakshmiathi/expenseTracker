@@ -81,6 +81,18 @@ public class UserTableImp {
         return userObj;
     }
 
+    public int getAmount() {
+        db = sqLiteUtil.getWritableDatabase();
+        String querySql="select count(*) as count from " + DBdesign.USER_TABLE_NAME;
+        Cursor cursor = db.rawQuery(querySql, null);
+        int count = 0;
+        while (cursor.moveToNext()) {
+            count = cursor.getInt(cursor.getColumnIndex("count"));
+        }
+        db.close();
+        return count;
+    }
+
     public void closeDBConnection(){
         db.close();
     }
