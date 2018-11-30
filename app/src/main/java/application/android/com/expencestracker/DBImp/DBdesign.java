@@ -16,6 +16,7 @@ public class DBdesign {
     public static final String USER_TABLE_INFO_COLUM_PASSWORD = "password";
     public static final String USER_TABLE_INFO_COLUM_EMAIL = "email";
     public static final String USER_TABLE_INFO_COLUM_STATUS = "status";
+    public static final String USER_TABLE_INFO_LIMIT ="limit1";
     public static final String EXPENSE_TABLE_NAME = "user_expense_record";
     public static final String EXPENSE_TABLE_INFO_COLUM_ID = "expenseid";
     public static final String EXPENSE_TABLE_INFO_COLUM_AMOUNT = "amount";
