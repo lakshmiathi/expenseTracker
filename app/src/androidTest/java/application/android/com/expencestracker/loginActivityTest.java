@@ -4,7 +4,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
-import org.mockito.Mock;
+//import org.mockito.Mock;
 
 import android.app.Activity;
 import android.app.Instrumentation;
@@ -23,7 +23,7 @@ import static android.support.test.espresso.action.ViewActions.typeText;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
 import static org.junit.Assert.*;
 
-import static org.mockito.Mockito.when;
+//import static org.mockito.Mockito.when;
 
 
 public class loginActivityTest {
