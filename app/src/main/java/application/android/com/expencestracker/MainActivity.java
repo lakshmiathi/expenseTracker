@@ -59,7 +59,7 @@ public class MainActivity extends AppCompatActivity {
     HomeFragment setHomeFragment;
     UserTableImp userTableImp;
 
-    private void notifyOnLimit(String user_id) {
+    public void notifyOnLimit(String user_id) {
         if(user_id != null) {
             userTableImp = new UserTableImp(this);
             String limit = userTableImp.getLimit(Integer.parseInt(user_id));
@@ -110,8 +110,8 @@ public class MainActivity extends AppCompatActivity {
         Bundle bundle=new Bundle();
         bundle.putString(username,user_name);
         setHomeFragment=new HomeFragment();
-        //String limit=setHomeFragment.setLimit(user_id)  ;
-        notifyOnLimit(user_id);
+
+
 
 
         homeFragment.setArguments(bundle);

@@ -62,6 +62,8 @@ public class ExpensesFragment extends Fragment {
     TextView displayDate;
     Calendar calendar;
     private String method_type;
+    public  int num;
+
 
     public ExpensesFragment() {
         // Required empty public constructor
@@ -193,8 +195,11 @@ public class ExpensesFragment extends Fragment {
                                     list_expenses.setAdapter(adapterexpense);
                                     Double totalexpenses = expenseDao.sumAmountByUser(Integer.parseInt(user_id));
                                     total_expenses.setText(totalexpenses.toString());
+
                                     Expdialog.cancel();
                                     showToastSuccess("Expense updated",method_type);
+
+
                                 }
                             }
                         });
@@ -323,7 +328,14 @@ public class ExpensesFragment extends Fragment {
                 button_AddExpense.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        addExpense();
+
+                       int num= addExpense();
+
+                        if(num==1){
+                            ((MainActivity) getActivity()).notifyOnLimit(user_id);
+                        }
+
+
                         }
                 });
 
@@ -398,7 +410,10 @@ public class ExpensesFragment extends Fragment {
     }
 
 
-    private void addExpense() {
+
+
+    private int addExpense() {
+
        text_Amount = (TextInputEditText) Expdialog.findViewById(R.id.text_Amount);
         method_type = "Add";
        text_Date = (TextInputEditText) Expdialog.findViewById(R.id.text_Date);
@@ -407,8 +422,10 @@ public class ExpensesFragment extends Fragment {
 
         if (exp.length() == 0 || Double.parseDouble(exp) < 0) {
             text_Amount.setError("Amount can't be empty");
+            num =0;
         } else if (expense_date == null || expense_date == "") {
             text_Date.setError("Enter correct date");
+            num=0;
         } else {
             Expense expenserecord = new Expense(Double.parseDouble(exp), expense_category, DateUtil.createDate(expense_date), Integer.parseInt(user_id));
             expensedata.add(expenserecord);
@@ -417,8 +434,11 @@ public class ExpensesFragment extends Fragment {
             text_Amount.getText().clear();
             text_Date.setText("");
             expense_date = "";
+            num=1;
         }
+        return num;
     }
+
 }
 
 
