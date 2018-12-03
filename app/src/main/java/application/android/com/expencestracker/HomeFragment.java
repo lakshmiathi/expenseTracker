@@ -97,10 +97,11 @@ public class HomeFragment extends Fragment {
         button_ok .setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                closeKeyboard();
                 editTextLimit.setVisibility(v.INVISIBLE);
                 button_ok.setVisibility(v.INVISIBLE);
                 String s = editTextLimit.getText().toString();
-                closeKeyboard();
+
                 userTableImp.update(Integer.parseInt(user_id), s);
                 Toast.makeText(getContext(), "value for limit:" + s, Toast.LENGTH_SHORT).show();
             }
