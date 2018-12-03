@@ -4,6 +4,8 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+
+import application.android.com.expencestracker.Model.Expense;
 import application.android.com.expencestracker.Model.User;
 
 /**
@@ -24,8 +26,14 @@ public class UserTableImp {
         db = sqLiteUtil.getWritableDatabase();
     }
 
+    /**
+     * The add method enables user to create a new user to database by giving an
+     * email address, user name, password.
+     *
+     * @param user A new {@link User} to be added
+     *
+     */
     public void add(User user) {
-        //sqLiteUtil.onUpgrade(db,2,2);
         db = sqLiteUtil.getWritableDatabase();
         if (user != null) {
             ContentValues contentValues = new ContentValues();
@@ -61,6 +69,14 @@ public class UserTableImp {
         db.close();
     }
 
+    /**
+     * The getUser method will get an object of User by giving an email addrss.
+     *
+     *
+     * @param pemail the email addrss which user wants to get.
+     * @return return an user instance
+     *
+     */
     public User getUser(String pemail) {
         db = sqLiteUtil.getWritableDatabase();
         String querySQL= "select * from " + DBdesign.USER_TABLE_NAME + " where "+DBdesign.USER_TABLE_INFO_COLUM_EMAIL+"='"+pemail+"' and " + DBdesign.USER_TABLE_INFO_COLUM_STATUS + "=1";
@@ -134,6 +150,14 @@ public class UserTableImp {
 
     }
 
+    /**
+     * The getLimit method will get the limit number of specified user.
+     *
+     *
+     * @param user_id the user id which user wants to get limit number.
+     * @return return the limit number of specified user.
+     *
+     */
     public String getLimit(int user_id) {
         db = sqLiteUtil.getWritableDatabase();
         String query="select userid _id ,"+ DBdesign.USER_TABLE_INFO_LIMIT+" from "+DBdesign.USER_TABLE_NAME + " where " +DBdesign.USER_TABLE_INFO_COLUM_ID +" = " +user_id;
