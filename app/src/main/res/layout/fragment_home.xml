@@ -28,6 +28,20 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <ProgressBar
+        android:id="@+id/pro"
+        style="@android:style/Widget.ProgressBar.Horizontal"
+        android:layout_width="350dp"
+        android:layout_height="16dp"
+        android:layout_centerInParent="true"
+        android:layout_marginBottom="8dp"
+
+        android:max="100"
+        android:progressDrawable="@drawable/progress_drawable"
+        app:layout_constraintBottom_toTopOf="@+id/listview_category"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
     <TextView
         android:id="@+id/textView_expenses"
         android:layout_width="wrap_content"

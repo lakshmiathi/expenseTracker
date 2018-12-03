@@ -16,6 +16,7 @@ import android.widget.Button;
 import android.widget.CursorAdapter;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -41,6 +42,7 @@ public class HomeFragment extends Fragment {
     private UserSessionManager session;
     private static final String KEY_USERID = "USER_ID";
     String user_id;
+    ProgressBar progress1;
 
 
 
@@ -71,6 +73,11 @@ public class HomeFragment extends Fragment {
         //Animation anime = AnimationUtils.loadAnimation(getContext(),R.anim.bounce_interpolator);
         //textView.startAnimation(anime);
 
+
+        progress1 = view.findViewById(R.id.pro);
+        Progress_Bar();
+
+
         TextView total = (TextView)view.findViewById(R.id.textview_total);
 
 
@@ -97,12 +104,17 @@ public class HomeFragment extends Fragment {
         button_ok .setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 closeKeyboard();
+
+
+
                 editTextLimit.setVisibility(v.INVISIBLE);
                 button_ok.setVisibility(v.INVISIBLE);
                 String s = editTextLimit.getText().toString();
 
                 userTableImp.update(Integer.parseInt(user_id), s);
+                Progress_Bar();
                 Toast.makeText(getContext(), "value for limit:" + s, Toast.LENGTH_SHORT).show();
             }
         });
@@ -129,9 +141,22 @@ public class HomeFragment extends Fragment {
 
         }
 
+        }
 
 
-    }
+        public  void Progress_Bar(){
+
+            UserTableImp db = new UserTableImp(getActivity());
+            int limit_expenses = db.limit();
+            int sum_expenses = db.sumAmount();
+            int per= (sum_expenses*100)/limit_expenses;
+            progress1.setMax(100);
+            progress1.setProgress(per);
+            progress1.setAnimation(AnimationUtils.loadAnimation(getContext(), R.anim.fade));
+            progress1.getProgress();
+            progress1.getProgressDrawable();
+            progress1.invalidate();
+        }
 
     public String setLimit(String user_id){
 

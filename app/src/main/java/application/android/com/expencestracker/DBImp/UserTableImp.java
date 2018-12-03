@@ -95,6 +95,34 @@ public class UserTableImp {
         return count;
     }
 
+    public int limit(){
+        db = sqLiteUtil.getReadableDatabase();
+        String querySql = "select "+DBdesign.USER_TABLE_INFO_LIMIT+ " as limits from " + DBdesign.USER_TABLE_NAME;
+        Cursor cursor = db.rawQuery(querySql, null);
+        int limit = 0;
+        while (cursor.moveToNext()) {
+            limit = cursor.getInt(cursor.getColumnIndex("limits"));
+        }
+        db.close();
+        return limit;
+    }
+
+    public int sumAmount(){
+        db = sqLiteUtil.getReadableDatabase();
+        String querySql = "SELECT sum(" + DBdesign.EXPENSE_TABLE_INFO_COLUM_AMOUNT + ") AS Total FROM " + DBdesign.EXPENSE_TABLE_NAME;
+        Cursor cursor = db.rawQuery(querySql, null);
+        int sumAmount = 0;
+        while (cursor.moveToNext()) {
+            sumAmount = cursor.getInt(cursor.getColumnIndex("Total"));
+        }
+        db.close();
+        return sumAmount;
+    }
+
+
+
+
+
 
     public void update(int id, String limit) {
         db = sqLiteUtil.getWritableDatabase();
