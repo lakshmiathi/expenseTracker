@@ -56,7 +56,7 @@ public class HomeFragment extends Fragment {
 
         View view=inflater.inflate(R.layout.fragment_home, container, false);
         textView=(TextView)view.findViewById(R.id.home1);
-        //String name= this.getString("username");
+
 
         this._context = this.getContext();
         this.session = new UserSessionManager(this._context);
@@ -69,9 +69,6 @@ public class HomeFragment extends Fragment {
         String name =b.getString(username);
         textView.setText("Welcome "+ name);
         textView.startAnimation(AnimationUtils.loadAnimation(getContext(),R.anim.slide_animation));
-        //Animation anime = AnimationUtils.loadAnimation(getContext(),R.anim.bounce_interpolator);
-        //textView.startAnimation(anime);
-
 
         progress1 = view.findViewById(R.id.pro);
         Progress_Bar();
@@ -105,9 +102,6 @@ public class HomeFragment extends Fragment {
             public void onClick(View v) {
 
                 closeKeyboard();
-
-
-
                 editTextLimit.setVisibility(v.INVISIBLE);
                 button_ok.setVisibility(v.INVISIBLE);
                 String s = editTextLimit.getText().toString();
@@ -121,8 +115,9 @@ public class HomeFragment extends Fragment {
 
     }
 
-    //Closes the keyboard
-
+    /*
+     * Closes the keyboard
+     */
     private void closeKeyboard() {
         View view= getActivity().getCurrentFocus();
         if(view!=null){
@@ -136,6 +131,9 @@ public class HomeFragment extends Fragment {
         }
 
 
+    /**
+     *
+     */
         public  void Progress_Bar(){
 
             UserTableImp db = new UserTableImp(getActivity());

@@ -101,7 +101,6 @@ public class MainActivity extends AppCompatActivity {
         user_name = usr.get(getResources().getString(R.string.KEY_USERNAME));
 
         TextView tv = (TextView) findViewById(R.id.tv_UserId);
-        //tv.setText("Welcome   " + user_name +"!!");
 
         homeFragment= new HomeFragment();
         statisticsFragment = new StatisticsFragment();
@@ -156,8 +155,10 @@ public class MainActivity extends AppCompatActivity {
 
 
     }
-    //Creates notification channel
 
+    /**
+     * Creates notification channel
+     */
     public void createNotificationChannel() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             CharSequence name = "personal Notification";
@@ -172,8 +173,11 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    //Invokes the notification by using notification manager
 
+
+    /**
+     *  Invokes the notification by using notification manager
+     */
     public void creatNotification(){
         Intent intent =new Intent(getApplicationContext(),MainActivity.class);
         PendingIntent resultPendingIntent=PendingIntent.getActivity(getApplicationContext(),2,intent,PendingIntent.FLAG_UPDATE_CURRENT);
@@ -189,8 +193,10 @@ public class MainActivity extends AppCompatActivity {
         notificationManagerCompat.notify(NOTIFICATION_ID,builder.build());
     }
 
-    //Navigation between fragments
-
+    /**
+     * @param fragment as input
+     * Navigation between fragments
+     */
     private void setFragment(Fragment fragment) {
         FragmentTransaction fragmentTransaction=getSupportFragmentManager().beginTransaction();
         fragmentTransaction.replace(R.id.main_frame,fragment);
@@ -200,10 +206,6 @@ public class MainActivity extends AppCompatActivity {
         bundle.putString(username,user_name);
         fragment.setArguments(bundle);
     }
-
-
-
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -235,7 +237,4 @@ public class MainActivity extends AppCompatActivity {
 
 
     }
-
-
-
 }
