@@ -106,7 +106,7 @@ public class MainActivity extends AppCompatActivity {
         aboutUsFragment = new AboutUsFragment();
         barFragment= new BarFragment();
 
-       setFragment(homeFragment);
+        setFragment(homeFragment, "HOME_FRAGMENT");
         Bundle bundle=new Bundle();
         bundle.putString(username,user_name);
         setHomeFragment=new HomeFragment();
@@ -124,27 +124,27 @@ public class MainActivity extends AppCompatActivity {
 
                 switch (menuItem.getItemId()){
                     case R.id.home:
-                       // mainnav.setItemBackgroundResource(R.color.colorPrimaryDark);
+                        // mainnav.setItemBackgroundResource(R.color.colorPrimaryDark);
 
-                        setFragment(homeFragment);
+                        setFragment(homeFragment, "HOME_FRAGMENT");
 
                         return true;
 
                     case R.id.Expenses:
-                        setFragment(expensesFragment);
+                        setFragment(expensesFragment, "EXPENSE_FRAGMENT");
                         //mainnav.setItemBackgroundResource(R.color.nav_colors);
                         return true;
                     case R.id.Statistics:
-                        setFragment(statisticsFragment);
+                        setFragment(statisticsFragment, "STAT_FRAGMENT");
                         return true;
                     case R.id.BarChart:
-                        setFragment(barFragment);
+                        setFragment(barFragment, "BAR_FRAGMENT");
                         return true;
                     case R.id.AboutUs:
-                        setFragment(aboutUsFragment);
+                        setFragment(aboutUsFragment, "ABOUTUS_FRAGMENT");
                         return true;
-                     default:
-                         return false;
+                    default:
+                        return false;
                 }
 
             }
@@ -183,9 +183,9 @@ public class MainActivity extends AppCompatActivity {
         notificationManagerCompat.notify(NOTIFICATION_ID,builder.build());
     }
 
-    private void setFragment(Fragment fragment) {
+    private void setFragment(Fragment fragment, String fragmentTag) {
         FragmentTransaction fragmentTransaction=getSupportFragmentManager().beginTransaction();
-        fragmentTransaction.replace(R.id.main_frame,fragment);
+        fragmentTransaction.replace(R.id.main_frame,fragment, fragmentTag);
         fragmentTransaction.commit();
         Bundle bundle = new Bundle();
         bundle.putString("ID",String.valueOf(user_id));
@@ -194,8 +194,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public String setLimit(String s)  {
-            limit = s;
-            return limit;
+        limit = s;
+        return limit;
     }
 
 
@@ -225,7 +225,7 @@ public class MainActivity extends AppCompatActivity {
             return true;
         }
 
-            return super.onOptionsItemSelected(item);
+        return super.onOptionsItemSelected(item);
 
 
 
@@ -234,3 +234,4 @@ public class MainActivity extends AppCompatActivity {
 
 
 }
+
