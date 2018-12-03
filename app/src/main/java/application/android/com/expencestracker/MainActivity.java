@@ -58,7 +58,10 @@ public class MainActivity extends AppCompatActivity {
     String limit;
     HomeFragment setHomeFragment;
     UserTableImp userTableImp;
-
+    /*
+    Getting the limit from database and issue notification, if exceeding the limits
+    @param user_id the id of the user
+     */
     public void notifyOnLimit(String user_id) {
         if(user_id != null) {
             userTableImp = new UserTableImp(this);
@@ -153,6 +156,7 @@ public class MainActivity extends AppCompatActivity {
 
 
     }
+    //Creates notification channel
 
     public void createNotificationChannel() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
@@ -167,6 +171,8 @@ public class MainActivity extends AppCompatActivity {
             notificationManager.createNotificationChannel(channel);
         }
     }
+
+    //Invokes the notification by using notification manager
 
     public void creatNotification(){
         Intent intent =new Intent(getApplicationContext(),MainActivity.class);
@@ -183,6 +189,8 @@ public class MainActivity extends AppCompatActivity {
         notificationManagerCompat.notify(NOTIFICATION_ID,builder.build());
     }
 
+    //Navigation between fragments
+
     private void setFragment(Fragment fragment) {
         FragmentTransaction fragmentTransaction=getSupportFragmentManager().beginTransaction();
         fragmentTransaction.replace(R.id.main_frame,fragment);
@@ -193,10 +201,7 @@ public class MainActivity extends AppCompatActivity {
         fragment.setArguments(bundle);
     }
 
-    public String setLimit(String s)  {
-            limit = s;
-            return limit;
-    }
+
 
 
 

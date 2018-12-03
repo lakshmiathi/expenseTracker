@@ -6,7 +6,6 @@ import android.content.Context;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -118,18 +117,11 @@ public class HomeFragment extends Fragment {
                 Toast.makeText(getContext(), "value for limit:" + s, Toast.LENGTH_SHORT).show();
             }
         });
-
-
-        String limit=setLimit(user_id);
-
-
-
-
-        // Inflate the layout for this fragment
         return view;
 
-        //return inflater.inflate(R.layout.fragment_home, container, false);
     }
+
+    //Closes the keyboard
 
     private void closeKeyboard() {
         View view= getActivity().getCurrentFocus();
@@ -157,16 +149,6 @@ public class HomeFragment extends Fragment {
             progress1.getProgressDrawable();
             progress1.invalidate();
         }
-
-    public String setLimit(String user_id){
-
-        userTableImp = new UserTableImp(getActivity());
-        String limit = userTableImp.getLimit(Integer.parseInt(user_id));
-        Log.d("Sucess", "Value of limit:" + limit + user_id);
-        editTextLimit.setText(limit);
-        return limit;
-
-    }
 
 
 }
