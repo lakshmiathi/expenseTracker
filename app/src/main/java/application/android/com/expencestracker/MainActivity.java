@@ -45,11 +45,8 @@ public class MainActivity extends AppCompatActivity {
 
     private FrameLayout mainFrame;
     public static String username;
-
-
     private EditText emailInput;
     private EditText pwInput;
-
     private Context _context;
     private UserSessionManager session;
     String user_id;
@@ -81,7 +78,6 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -101,21 +97,16 @@ public class MainActivity extends AppCompatActivity {
         user_name = usr.get(getResources().getString(R.string.KEY_USERNAME));
 
         TextView tv = (TextView) findViewById(R.id.tv_UserId);
-
         homeFragment= new HomeFragment();
         statisticsFragment = new StatisticsFragment();
         expensesFragment= new ExpensesFragment();
         aboutUsFragment = new AboutUsFragment();
         barFragment= new BarFragment();
 
-       setFragment(homeFragment);
+        setFragment(homeFragment, "HOME_FRAGMENT");
         Bundle bundle=new Bundle();
         bundle.putString(username,user_name);
         setHomeFragment=new HomeFragment();
-
-
-
-
         homeFragment.setArguments(bundle);
 
         mainnav=(BottomNavigationView)findViewById(R.id.main_nav);
@@ -126,27 +117,25 @@ public class MainActivity extends AppCompatActivity {
 
                 switch (menuItem.getItemId()){
                     case R.id.home:
-                       // mainnav.setItemBackgroundResource(R.color.colorPrimaryDark);
+                        // mainnav.setItemBackgroundResource(R.color.colorPrimaryDark);
 
-                        setFragment(homeFragment);
-
+                        setFragment(homeFragment, "HOME_FRAGMENT");
                         return true;
-
                     case R.id.Expenses:
-                        setFragment(expensesFragment);
+                        setFragment(expensesFragment, "EXPENSE_FRAGMENT");
                         //mainnav.setItemBackgroundResource(R.color.nav_colors);
                         return true;
                     case R.id.Statistics:
-                        setFragment(statisticsFragment);
+                        setFragment(statisticsFragment, "STAT_FRAGMENT");
                         return true;
                     case R.id.BarChart:
-                        setFragment(barFragment);
+                        setFragment(barFragment, "BAR_FRAGMENT");
                         return true;
                     case R.id.AboutUs:
-                        setFragment(aboutUsFragment);
+                        setFragment(aboutUsFragment, "ABOUTUS_FRAGMENT");
                         return true;
-                     default:
-                         return false;
+                    default:
+                        return false;
                 }
 
             }
@@ -162,17 +151,12 @@ public class MainActivity extends AppCompatActivity {
     public void createNotificationChannel() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             CharSequence name = "personal Notification";
-
             int importance = NotificationManager.IMPORTANCE_DEFAULT;
-
             NotificationChannel channel = new NotificationChannel(CHANNEL_ID, name, importance);
-
-
             NotificationManager notificationManager = getSystemService(NotificationManager.class);
             notificationManager.createNotificationChannel(channel);
         }
     }
-
 
 
     /**
@@ -193,19 +177,28 @@ public class MainActivity extends AppCompatActivity {
         notificationManagerCompat.notify(NOTIFICATION_ID,builder.build());
     }
 
+
     /**
      * @param fragment as input
      * Navigation between fragments
      */
-    private void setFragment(Fragment fragment) {
+
+    private void setFragment(Fragment fragment, String fragmentTag) {
         FragmentTransaction fragmentTransaction=getSupportFragmentManager().beginTransaction();
-        fragmentTransaction.replace(R.id.main_frame,fragment);
+        fragmentTransaction.replace(R.id.main_frame,fragment, fragmentTag);
         fragmentTransaction.commit();
         Bundle bundle = new Bundle();
         bundle.putString("ID",String.valueOf(user_id));
         bundle.putString(username,user_name);
         fragment.setArguments(bundle);
     }
+
+
+    public String setLimit(String s)  {
+        limit = s;
+        return limit;
+    }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -231,10 +224,8 @@ public class MainActivity extends AppCompatActivity {
             session.logoutUser();
             return true;
         }
-
-            return super.onOptionsItemSelected(item);
-
-
+        return super.onOptionsItemSelected(item);
 
     }
 }
+
