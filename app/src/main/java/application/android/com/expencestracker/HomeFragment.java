@@ -71,7 +71,7 @@ public class HomeFragment extends Fragment {
         textView.startAnimation(AnimationUtils.loadAnimation(getContext(),R.anim.slide_animation));
 
         progress1 = view.findViewById(R.id.pro);
-        Progress_Bar();
+       Progress_Bar();
 
 
         TextView total = (TextView)view.findViewById(R.id.textview_total);
@@ -107,7 +107,7 @@ public class HomeFragment extends Fragment {
                 String s = editTextLimit.getText().toString();
 
                 userTableImp.update(Integer.parseInt(user_id), s);
-                Progress_Bar();
+               Progress_Bar();
                 Toast.makeText(getContext(), "value for limit:" + s, Toast.LENGTH_SHORT).show();
             }
         });
@@ -134,12 +134,12 @@ public class HomeFragment extends Fragment {
     /**
      *
      */
-        public  void Progress_Bar(){
+       public  void Progress_Bar(){
 
             UserTableImp db = new UserTableImp(getActivity());
             int limit_expenses = db.limit();
             int sum_expenses = db.sumAmount();
-            int per= (sum_expenses*100)/limit_expenses;
+            int per= (sum_expenses*100)/(limit_expenses+1);
             progress1.setMax(100);
             progress1.setProgress(per);
             progress1.setAnimation(AnimationUtils.loadAnimation(getContext(), R.anim.fade));
