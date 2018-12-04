@@ -146,6 +146,7 @@ public class HomeFragment extends Fragment {
             progress1.getProgress();
             progress1.getProgressDrawable();
             progress1.invalidate();
+            
         }
 
 

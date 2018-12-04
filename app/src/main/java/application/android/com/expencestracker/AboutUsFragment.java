@@ -51,21 +51,26 @@ public class AboutUsFragment extends Fragment {
 
     public class ExpandabelListAdoptor extends BaseExpandableListAdapter {
 
-        private String[] aboutUs={"Introduction","Value Proposition","Contact Us"};
+        private String[] aboutUs={"Introduction","Value Proposition","Contact Us","Version","Fork Us On GitHub"};
         private String[][] child={
                 {
                         "ExTrack is one stop Solution for all your expense management needs." +
                         "ExTrack aims to provide a hassle free and enjoyable" +
                         "expense management experience for all users across world." +
                         "ExTrack is making a conscious effort to bring the power of Expense Management" +
-                        "to users and make track of all expenses in day to day life"
+                        "to users and make track of all expenses in day to day life" +
+                                "User can set Limit for his expenses and ExTrack sends you notification message " +
+                                "when the limit is crossed "
                    },
                 {"ExTrack's value proposition revolves around giving customer the power and easy of tracking expenses Offline" +
                         ".To make tracking easier for you,a dedicated customer connect team is on standby " +
-                        "to answer your queries .The next versions of the ExTrack is comming soon with lot of" +
+                        "to answer your queries .The next versions of the ExTrack is coming soon with lot of" +
                         " new exciting features"},
                 {"For any queries or issues please feel free to contact us at ExtrackApp@gmail.com" +
-                        "Telephone: 0801255555"}
+                        "Telephone: 0801255555"},
+                {"1.0"},
+                {"https://github.com/Seif-Abedsslem/ExpenseTracker"}
+
         };
 
         @Override
