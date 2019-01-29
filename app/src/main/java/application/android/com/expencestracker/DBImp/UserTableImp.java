@@ -111,9 +111,9 @@ public class UserTableImp {
         return count;
     }
 
-    public int limit(){
+    public int limit(int userid){
         db = sqLiteUtil.getReadableDatabase();
-        String querySql = "select "+DBdesign.USER_TABLE_INFO_LIMIT+ " as limits from " + DBdesign.USER_TABLE_NAME;
+        String querySql = "select "+DBdesign.USER_TABLE_INFO_LIMIT+ " as limits from " + DBdesign.USER_TABLE_NAME + " where " +DBdesign.USER_TABLE_INFO_COLUM_ID +" = " + userid;
         Cursor cursor = db.rawQuery(querySql, null);
         int limit = 0;
         while (cursor.moveToNext()) {

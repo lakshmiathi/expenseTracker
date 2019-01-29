@@ -134,7 +134,7 @@ public class HomeFragment extends Fragment {
     /**
      *
      */
-       public  void Progress_Bar(){
+       /*public  void Progress_Bar(){
 
             UserTableImp db = new UserTableImp(getActivity());
             int limit_expenses = db.limit();
@@ -147,7 +147,31 @@ public class HomeFragment extends Fragment {
             progress1.getProgressDrawable();
             progress1.invalidate();
             
-        }
+        }*/
+
+    public  void Progress_Bar(){
+        UserTableImp db = new UserTableImp(getActivity());
+        ExpenseDaoImpl exp = new ExpenseDaoImpl(getActivity());
+        int limit_expenses = db.limit(Integer.parseInt(user_id));
+        int sum_expenses = (int)exp.sumAmountByUser(Integer.parseInt(user_id));
+        final int per= (sum_expenses*100)/(limit_expenses+1);
+
+        progress1.setMax(100);
+        //progress1.setProgress(per);
+
+        progress1.post(new Runnable() {
+            @Override
+            public void run() {
+                progress1.setProgress(Math.abs(per));
+            }
+        });
+        progress1.setAnimation(AnimationUtils.loadAnimation(getContext(), R.anim.fade));
+        progress1.getProgress();
+        progress1.getProgressDrawable();
+        progress1.invalidate();
+
+
+    }
 
 
 }
